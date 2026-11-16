@@ -7,10 +7,12 @@ type Props = {
   href: string;
   media: MediaKey;
   slotLabel: string;
+  /** Optional line under the name, e.g. how many items are in the section. */
+  note?: string;
 };
 
 /** A category as a photo with its name banded across the bottom. */
-export function CategoryTile({ name, href, media, slotLabel }: Props) {
+export function CategoryTile({ name, href, media, slotLabel, note }: Props) {
   return (
     <Link
       href={href}
@@ -27,8 +29,11 @@ export function CategoryTile({ name, href, media, slotLabel }: Props) {
         aria-hidden
         className="photo-veil pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
       />
-      <span className="absolute inset-x-0 bottom-0 p-4 text-base font-bold text-white">
-        {name}
+      <span className="absolute inset-x-0 bottom-0 p-4">
+        <span className="block text-base font-bold text-white">{name}</span>
+        {note ? (
+          <span className="mt-0.5 block text-xs text-white/85">{note}</span>
+        ) : null}
       </span>
     </Link>
   );

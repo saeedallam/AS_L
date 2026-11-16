@@ -182,5 +182,29 @@
       "advice": "We help you pick the right option for the school stage.",
       "bulk": "Special pricing for schools, companies, and bulk orders."
     }
+  },
+  "Categories": {
+    "title": "All Sections",
+    "subtitle": "The shop is split into clear sections so you can find what you need quickly.",
+    "itemCount": "{count, plural, =0 {No items} one {1 item} other {# items}}",
+    "filterInCatalog": "Advanced Filters For This Section"
+  },
+  "Brands": {
+    "title": "Brands",
+    "subtitle": "We work with authorised suppliers and agents. What you see here is a sample of the brands we carry.",
+    "itemCount": "{count, plural, =0 {No items} one {1 item} other {# items}}",
+    "note": "These names and logos are placeholders until the real brands are added from the dashboard."
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "subtitle": "WhatsApp is the fastest way to reach us. You can also visit the shop or call.",
+    "addressLabel": "Address",
+    "phoneLabel": "Phone",
+    "hoursLabel": "Opening hours",
+    "emailLabel": "Email",
+    "emailValue": "[email address]",
+    "mapTitle": "Shop location",
+    "mapEmpty": "The map appears here once a location link is added.",
+    "formNote": "A message form will be added when the database is connected. Until then, WhatsApp and phone are the fastest ways to reach us."
   }
 }

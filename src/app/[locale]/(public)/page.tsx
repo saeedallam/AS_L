@@ -11,30 +11,19 @@ import { FeatureTile } from "@/components/ui-kit/feature-tile";
 import { SectionTitle } from "@/components/ui-kit/section-title";
 import type { MediaKey } from "@/lib/media";
 import { routing } from "@/i18n/routing";
+import {
+  brands,
+  categories,
+  countIn,
+  sampleProducts,
+} from "@/lib/sample-catalog";
 import { siteConfig } from "@/lib/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-// Sample content. Phase 3 replaces every list below with database queries.
-const categories = [
-  { key: "school", media: "cat-school" },
-  { key: "art", media: "cat-art" },
-  { key: "notebooks", media: "cat-notebooks" },
-  { key: "office", media: "cat-office" },
-] as const satisfies readonly { key: string; media: MediaKey }[];
-
-const products = [
-  { key: "notebook", media: "p-notebook" },
-  { key: "pen", media: "p-pen" },
-  { key: "case", media: "p-case" },
-  { key: "backpack", media: "p-backpack" },
-] as const satisfies readonly { key: string; media: MediaKey }[];
-
-const brands = [
-  { key: "one", media: "brand-1" },
-  { key: "two", media: "brand-2" },
-  { key: "three", media: "brand-3" },
-  { key: "four", media: "brand-4" },
-] as const satisfies readonly { key: string; media: MediaKey }[];
+// The home page shows the first few of the same sections, brands and products
+// the rest of the site uses, so every tile here links somewhere real.
+const featuredCategories = categories.slice(0, 4);
+const featuredProducts = sampleProducts.slice(0, 4);
 
 const reasons = [
   { key: "curation", icon: Sparkles, tint: "blue" },
@@ -60,7 +49,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
   const t = await getTranslations("Home");
   const whatsapp = await getTranslations("WhatsApp");
-  const slot = t("photoSlot");
+  const tCatalogData = await getTranslations("CatalogData");
+  const tCategories = await getTranslations("Categories");
 
   const askAbout = (name: string) =>
     buildWhatsAppUrl(siteConfig.whatsappNumber, whatsapp("about", { name }));
@@ -117,13 +107,14 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           subtitle={t("categoriesSubtitle")}
         />
         <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-          {categories.map(({ key, media }) => (
+          {featuredCategories.map(({ key, media }) => (
             <CategoryTile
               key={key}
-              name={t(`categories.${key}`)}
-              href="/categories"
+              name={tCatalogData(`categories.${key}`)}
+              note={tCategories("itemCount", { count: countIn("category", key) })}
+              href={`/categories/${key}`}
               media={media}
-              slotLabel={slot}
+              slotLabel={tCatalogData(`categories.${key}`)}
             />
           ))}
         </div>
@@ -136,19 +127,21 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           subtitle={t("productsSubtitle")}
         />
         <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-          {products.map(({ key, media }) => (
-            <ProductCard
-              key={key}
-              name={t(`products.${key}.name`)}
-              meta={t(`products.${key}.meta`)}
-              price={t(`products.${key}.price`)}
-              href="/products"
-              media={media}
-              slotLabel={slot}
-              askUrl={askAbout(t(`products.${key}.name`))}
-              askLabel={whatsapp("ask")}
-            />
-          ))}
+          {featuredProducts.map((product) => {
+            const name = locale === "en" ? product.nameEn : product.name;
+            return (
+              <ProductCard
+                key={product.slug}
+                name={name}
+                meta={tCatalogData(`categories.${product.category}`)}
+                href={`/products/${product.slug}`}
+                media={product.media}
+                slotLabel={name}
+                askUrl={askAbout(name)}
+                askLabel={whatsapp("ask")}
+              />
+            );
+          })}
         </div>
         <div className="mt-8 text-center">
           <ActionLink href="/products" variant="outline" size="lg">
@@ -168,14 +161,14 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             >
               <Photo
                 media={media}
-                alt={t(`brands.${key}`)}
+                alt={tCatalogData(`brands.${key}`)}
                 slotLabel={t("brandSlot")}
                 sizes="(min-width: 1024px) 25vw, 50vw"
                 className="aspect-[5/4]"
               />
               <div className="p-4 text-center">
                 <p className="text-sm font-extrabold uppercase tracking-wide text-navy">
-                  {t(`brands.${key}`)}
+                  {tCatalogData(`brands.${key}`)}
                 </p>
                 <ActionLink
                   href="/brands"

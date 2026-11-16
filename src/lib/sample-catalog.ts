@@ -49,6 +49,31 @@ export const sampleProducts: SampleProduct[] = [
   { slug: "copy-paper-a4", name: "ورق تصوير A4", nameEn: "A4 copy paper", category: "office", brand: "three", age: "secondary", media: "c-18" },
 ];
 
+/** One list of sections for the whole site: home, catalogue and filters. */
+export const categories = [
+  { key: "bags", media: "cat-bags" },
+  { key: "notebooks", media: "cat-notebooks" },
+  { key: "pens", media: "cat-pens" },
+  { key: "geometry", media: "cat-geometry" },
+  { key: "art", media: "cat-art" },
+  { key: "office", media: "cat-office" },
+] as const satisfies readonly { key: CategoryKey; media: string }[];
+
+export const brands = [
+  { key: "one", media: "brand-1" },
+  { key: "two", media: "brand-2" },
+  { key: "three", media: "brand-3" },
+  { key: "four", media: "brand-4" },
+] as const satisfies readonly { key: BrandKey; media: string }[];
+
+export function productsInCategory(key: CategoryKey) {
+  return sampleProducts.filter((product) => product.category === key);
+}
+
+export function countIn(field: "category" | "brand" | "age", value: string) {
+  return sampleProducts.filter((product) => product[field] === value).length;
+}
+
 export const PAGE_SIZE = 10;
 
 type Query = {
