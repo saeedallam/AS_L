@@ -5,13 +5,11 @@ import { ComingSoon } from "@/components/shared/coming-soon";
 import { routing } from "@/i18n/routing";
 
 // Placeholder until this page is built in a later phase.
-export default async function Page({
-  params,
-}: PageProps<"/[locale]/services">) {
+export default async function Page({ params }: PageProps<"/[locale]/services">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const t = await getTranslations("Nav");
+  const t = await getTranslations("Footer");
   return <ComingSoon title={t("services")} />;
 }

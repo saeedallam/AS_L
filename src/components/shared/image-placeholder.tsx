@@ -1,7 +1,7 @@
 import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/** Shown wherever a product, category or gallery image has not been uploaded yet. */
+/** Shown wherever a real photo has not been uploaded yet. */
 export function ImagePlaceholder({
   label,
   className,
@@ -14,7 +14,7 @@ export function ImagePlaceholder({
       role="img"
       aria-label={label}
       className={cn(
-        "flex aspect-square flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-foreground/25 bg-background text-sm text-muted",
+        "flex size-full flex-col items-center justify-center gap-2 border-2 border-dashed border-line bg-background text-xs text-muted",
         className,
       )}
     >

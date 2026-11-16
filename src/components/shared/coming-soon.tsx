@@ -7,11 +7,11 @@ export async function ComingSoon({ title }: { title: string }) {
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center justify-center gap-4 px-6 py-24 text-center">
-      <span className="-rotate-2 rounded-md bg-pencil px-3.5 py-1 text-sm font-semibold text-ink">
+      <span className="rounded-full bg-secondary-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-secondary">
         {t("badge")}
       </span>
-      <h1 className="font-heading text-3xl font-bold">{title}</h1>
-      <p className="text-muted">{t("description")}</p>
+      <h1 className="text-3xl font-black text-heading">{title}</h1>
+      <p className="text-sm text-muted">{t("description")}</p>
       <ButtonLink href="/" size="lg">
         {t("backHome")}
       </ButtonLink>

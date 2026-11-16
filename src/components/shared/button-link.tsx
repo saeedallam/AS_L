@@ -3,14 +3,16 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 const variants = {
-  primary: "bg-ink text-paper hover:bg-ink/90 dark:bg-paper dark:text-ink",
-  outline: "border border-foreground/30 hover:bg-foreground/5",
-  whatsapp: "bg-whatsapp text-whatsapp-ink hover:brightness-95",
+  primary: "bg-primary text-white shadow-xl shadow-primary/20 hover:bg-blue-900",
+  outline:
+    "border-2 border-line bg-surface text-foreground hover:border-secondary hover:text-secondary",
+  soft: "bg-background border border-line text-heading hover:bg-line/60",
 } as const;
 
 const sizes = {
-  md: "min-h-11 px-5 text-[15px]",
-  lg: "min-h-13 px-7 text-base",
+  sm: "min-h-11 px-4 text-xs",
+  md: "min-h-12 px-5 text-sm",
+  lg: "min-h-14 px-8 text-base",
 } as const;
 
 type Props = ComponentProps<typeof Link> & {
@@ -27,7 +29,7 @@ export function ButtonLink({
   return (
     <Link
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors",
+        "inline-flex items-center justify-center gap-2 rounded-2xl font-bold transition",
         variants[variant],
         sizes[size],
         className,

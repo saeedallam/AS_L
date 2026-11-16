@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
 
-/** Plain GET form, so search works without JavaScript and results are shareable URLs. */
+/** Plain GET form: works without JavaScript and gives shareable result URLs. */
 export async function SearchForm({ className }: { className?: string }) {
   const locale = await getLocale();
   const t = await getTranslations("Search");
@@ -13,22 +13,19 @@ export async function SearchForm({ className }: { className?: string }) {
       action={`/${locale}/products`}
       method="get"
       className={cn(
-        "flex min-h-12 items-center gap-2.5 rounded-full border border-foreground/20 bg-surface ps-5 pe-1.5",
+        "flex min-h-12 items-center gap-2 rounded-full border border-line bg-background px-4 transition focus-within:border-secondary",
         className,
       )}
     >
-      <Search aria-hidden className="size-5 shrink-0" />
+      <Search aria-hidden className="size-4 shrink-0 text-muted" />
       <input
         type="search"
         name="q"
         aria-label={t("label")}
         placeholder={t("placeholder")}
-        className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted"
+        className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
       />
-      <button
-        type="submit"
-        className="min-h-9 rounded-full bg-ink px-4 text-sm font-semibold text-paper dark:bg-paper dark:text-ink"
-      >
+      <button type="submit" className="sr-only">
         {t("submit")}
       </button>
     </form>

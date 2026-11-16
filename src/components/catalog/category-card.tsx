@@ -1,49 +1,42 @@
-import type { LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, type LucideIcon } from "lucide-react";
+import { getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
-
-export type Accent = "pencil" | "ruler" | "eraser" | "marker";
-
-const accentStyles: Record<Accent, { card: string; icon: string }> = {
-  pencil: { card: "bg-pencil-soft", icon: "bg-pencil" },
-  ruler: { card: "bg-ruler-soft", icon: "bg-ruler" },
-  eraser: { card: "bg-eraser-soft", icon: "bg-eraser" },
-  marker: { card: "bg-marker-soft", icon: "bg-marker/60" },
-};
 
 type Props = {
   name: string;
   description: string;
   href: string;
-  accent: Accent;
   icon: LucideIcon;
+  browseLabel: string;
 };
 
-export function CategoryCard({
+export async function CategoryCard({
   name,
   description,
   href,
-  accent,
   icon: Icon,
+  browseLabel,
 }: Props) {
-  const styles = accentStyles[accent];
+  const locale = await getLocale();
+  const Arrow = locale === "ar" ? ArrowLeft : ArrowRight;
 
   return (
     <Link
       href={href}
-      className={cn(
-        "flex min-h-48 flex-col gap-3 rounded-2xl border border-ink/10 p-6 text-ink transition-transform hover:-translate-y-1",
-        styles.card,
-      )}
+      className="group rounded-3xl border border-line bg-surface p-6 text-center shadow-sm transition hover:border-secondary hover:shadow-xl"
     >
       <span
         aria-hidden
-        className={cn("grid size-13 place-items-center rounded-xl", styles.icon)}
+        className="mx-auto mb-4 grid size-16 place-items-center rounded-2xl bg-secondary-soft text-secondary transition duration-300 group-hover:bg-primary group-hover:text-accent"
       >
-        <Icon className="size-6" />
+        <Icon className="size-7" />
       </span>
-      <span className="font-heading text-xl font-semibold">{name}</span>
-      <span className="text-[15px] text-ink/75">{description}</span>
+      <span className="block text-lg font-bold text-heading">{name}</span>
+      <span className="mt-1 block text-xs text-muted">{description}</span>
+      <span className="mt-4 flex items-center justify-center gap-1 text-xs font-bold text-secondary">
+        {browseLabel}
+        <Arrow aria-hidden className="size-3.5" />
+      </span>
     </Link>
   );
 }

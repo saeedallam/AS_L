@@ -9,14 +9,13 @@ export const mainNav = [
   { key: "categories", href: "/categories" },
   { key: "products", href: "/products" },
   { key: "brands", href: "/brands" },
-  { key: "services", href: "/services" },
-  { key: "visit", href: "/#visit" },
+  { key: "about", href: "/about" },
+  { key: "gallery", href: "/gallery" },
   { key: "contact", href: "/contact" },
 ] as const;
 
 export const footerNav = [
-  { key: "about", href: "/about" },
-  { key: "gallery", href: "/gallery" },
+  { key: "services", href: "/services" },
   { key: "faq", href: "/faq" },
   { key: "privacy", href: "/privacy" },
 ] as const;

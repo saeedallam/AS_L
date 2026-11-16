@@ -4,32 +4,38 @@ import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 type Props = {
   name: string;
   href: string;
-  brand?: string | null;
+  category?: string | null;
   price?: string | null;
   noImageLabel: string;
 };
 
-/** Compact card used inside collection rows and "goes well with" lists. */
+/** Compact row card used in collections and "goes well with" lists. */
 export function MiniProductCard({
   name,
   href,
-  brand,
+  category,
   price,
   noImageLabel,
 }: Props) {
   return (
     <Link
       href={href}
-      className="flex flex-col gap-1.5 rounded-2xl border border-foreground/10 bg-surface p-2.5 transition-transform hover:-translate-y-1"
+      className="flex items-center gap-3 rounded-2xl border border-line bg-surface p-3 transition hover:shadow-lg"
     >
-      <ImagePlaceholder label={noImageLabel} className="text-[13px]" />
-      {brand ? (
-        <span className="text-xs font-semibold text-muted">{brand}</span>
-      ) : null}
-      <span className="font-heading text-[15px] font-semibold leading-snug">
-        {name}
+      <span className="size-16 shrink-0 overflow-hidden rounded-xl">
+        <ImagePlaceholder label={noImageLabel} className="text-[10px]" />
       </span>
-      {price ? <span className="text-sm font-bold">{price}</span> : null}
+      <span className="min-w-0 flex-1">
+        {category ? (
+          <span className="block text-[10px] text-muted">{category}</span>
+        ) : null}
+        <span className="block text-xs font-bold text-heading">{name}</span>
+        {price ? (
+          <span className="block text-xs font-black text-secondary">
+            {price}
+          </span>
+        ) : null}
+      </span>
     </Link>
   );
 }

@@ -1,73 +1,92 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
+import { WhatsAppButton } from "@/components/shared/whatsapp-button";
 
 type Props = {
   name: string;
   href: string;
   category: string;
-  brand?: string | null;
-  /** Already formatted, e.g. "45 EGP". Hidden when not provided. */
+  /** Second line under the category, e.g. brand and variant count. */
+  meta?: string | null;
+  description?: string | null;
+  /** Already formatted for display. Hidden when not provided. */
   price?: string | null;
   imageUrl?: string | null;
-  imageAlt?: string;
-  badge?: string | null;
-  labels: { details: string; noImage: string };
+  whatsappUrl?: string | null;
+  labels: { details: string; noImage: string; ask: string };
 };
 
 export function ProductCard({
   name,
   href,
   category,
-  brand,
+  meta,
+  description,
   price,
   imageUrl,
-  imageAlt,
-  badge,
+  whatsappUrl,
   labels,
 }: Props) {
   return (
-    <article className="group relative flex flex-col gap-2.5 rounded-2xl border border-foreground/10 bg-surface p-3.5 transition-transform hover:-translate-y-1">
-      <div className="relative">
-        {imageUrl ? (
-          <div className="relative aspect-square overflow-hidden rounded-xl bg-background">
+    <article className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-line bg-surface transition hover:shadow-xl">
+      <div>
+        <div className="relative h-56 overflow-hidden bg-background sm:h-64">
+          {imageUrl ? (
             <Image
               src={imageUrl}
-              alt={imageAlt ?? name}
+              alt={name}
               fill
-              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-              className="object-cover"
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition duration-500 group-hover:scale-105"
             />
-          </div>
-        ) : (
-          <ImagePlaceholder label={labels.noImage} />
-        )}
-        {badge ? (
-          <span className="absolute start-2.5 top-2.5 -rotate-2 rounded-md bg-eraser px-2.5 py-0.5 text-[13px] font-semibold text-ink">
-            {badge}
+          ) : (
+            <ImagePlaceholder label={labels.noImage} />
+          )}
+          <span className="absolute end-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white shadow">
+            {category}
           </span>
-        ) : null}
+        </div>
+
+        <div className="p-5 sm:p-6">
+          {meta ? (
+            <p className="mb-1 text-xs font-medium text-muted">{meta}</p>
+          ) : null}
+          <h3 className="mb-2 text-lg font-bold text-heading sm:text-xl">
+            {/* Stretched link: the whole card opens the product. */}
+            <Link href={href} className="after:absolute after:inset-0">
+              {name}
+            </Link>
+          </h3>
+          {description ? (
+            <p className="line-clamp-2 text-xs text-muted">{description}</p>
+          ) : null}
+        </div>
       </div>
 
-      <p className="text-[13px] font-semibold text-muted">
-        {brand ? `${category} · ${brand}` : category}
-      </p>
-
-      <h3 className="font-heading text-lg font-semibold leading-snug">
-        {/* The stretched link makes the whole card clickable. */}
-        <Link href={href} className="after:absolute after:inset-0">
-          {name}
-        </Link>
-      </h3>
-
-      <div className="mt-auto flex items-center justify-between gap-2 pt-1">
-        {price ? <span className="font-bold">{price}</span> : <span />}
-        <span
-          aria-hidden
-          className="inline-flex min-h-11 items-center rounded-full border border-foreground/40 px-4 text-[15px] font-semibold transition-colors group-hover:bg-foreground/5"
-        >
-          {labels.details}
-        </span>
+      <div className="mt-4 flex items-center justify-between gap-3 border-t border-line/60 p-5 pt-4 sm:p-6 sm:pt-4">
+        {price ? (
+          <span className="text-lg font-black text-heading">{price}</span>
+        ) : (
+          <span />
+        )}
+        <div className="flex items-center gap-2">
+          <span
+            aria-hidden
+            className="inline-flex min-h-11 items-center rounded-xl border border-line bg-background px-3.5 text-xs font-bold text-heading transition group-hover:bg-line/60"
+          >
+            {labels.details}
+          </span>
+          {whatsappUrl ? (
+            // Sits above the stretched link so it stays clickable.
+            <WhatsAppButton
+              href={whatsappUrl}
+              label={labels.ask}
+              className="relative z-10 min-h-11 rounded-xl px-3.5 text-xs"
+              iconClassName="size-4"
+            />
+          ) : null}
+        </div>
       </div>
     </article>
   );

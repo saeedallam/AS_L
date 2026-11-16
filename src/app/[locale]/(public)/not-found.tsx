@@ -6,9 +6,9 @@ export default async function NotFound() {
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center justify-center gap-4 px-6 py-24 text-center">
-      <p className="font-heading text-7xl font-bold text-eraser">404</p>
-      <h1 className="font-heading text-2xl font-bold">{t("title")}</h1>
-      <p className="text-muted">{t("description")}</p>
+      <p className="text-7xl font-black text-secondary">404</p>
+      <h1 className="text-2xl font-black text-heading">{t("title")}</h1>
+      <p className="text-sm text-muted">{t("description")}</p>
       <ButtonLink href="/" size="lg">
         {t("backHome")}
       </ButtonLink>

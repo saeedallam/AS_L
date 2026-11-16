@@ -1,130 +1,136 @@
 {
   "Metadata": {
     "title": "Asmaa Model Stationery | School & Office Supplies",
-    "description": "Everything you need for school, office and art in one place."
+    "description": "A showcase of school, office and art supplies. Browse the products and ask on WhatsApp."
   },
   "Common": {
     "storeName": "Asmaa Model Stationery",
-    "switchLocale": "العربية",
+    "storeNameShort": "Asmaa Stationery",
+    "storeTagline": "Model stationery and supplies",
+    "switchLocale": "ع",
     "toggleTheme": "Toggle dark mode"
+  },
+  "Announcement": {
+    "badge": "Showcase",
+    "text": "Browse the products and ask about any item on WhatsApp"
   },
   "Nav": {
     "label": "Main navigation",
+    "categories": "Categories",
     "products": "Products",
-    "categories": "Browse categories",
     "brands": "Brands",
-    "services": "Services",
+    "about": "Why us",
+    "gallery": "Gallery",
     "contact": "Contact",
+    "catalog": "Catalogue",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "visit": "Visit the store"
+    "closeMenu": "Close menu"
+  },
+  "Search": {
+    "label": "Search products",
+    "placeholder": "Search for a notebook, pen, bag...",
+    "submit": "Search"
   },
   "Home": {
-    "badge": "Back to school season",
-    "title": "All your school and office supplies in one place",
-    "subtitle": "Browse products and ask us about any item directly on WhatsApp.",
-    "browseProducts": "Browse products",
-    "contactUs": "Contact us",
-    "heroImage": "Banner photo slot: professionally shot products or the storefront",
-    "categoriesTitle": "Main categories",
-    "allCategories": "All categories",
-    "featuredTitle": "Featured products",
-    "sampleNote": "Sample products, shown only to preview the card design.",
-    "allProducts": "All products",
+    "badge": "Your first stop for quality school and office supplies",
+    "titleStart": "Everything your student and your desk need,",
+    "titleAccent": "at the best quality",
+    "subtitle": "Discover a wide range of notebooks, geometry sets, pens, school bags and office supplies. Browse the showcase and ask about any product on WhatsApp.",
+    "browseProducts": "Explore products",
+    "contactUs": "Get in touch",
+    "stats": {
+      "products": {
+        "value": "[product count]",
+        "label": "products on display"
+      },
+      "brands": {
+        "value": "[brand count]",
+        "label": "approved brands"
+      },
+      "quality": {
+        "value": "[year founded]",
+        "label": "serving students since"
+      }
+    },
+    "heroImage": "Main photo slot: the storefront or a product collection",
+    "heroBadgeLabel": "Permanent showcase",
+    "heroBadgeValue": "[short line about the store]",
+    "categoriesEyebrow": "Showcase sections",
+    "categoriesTitle": "Browse our complete sections",
+    "categoriesDescription": "A range of school, university and office supplies, arranged to suit your needs",
+    "browseCategory": "Browse section",
+    "featuredEyebrow": "Selected products",
+    "featuredTitle": "Highlights from the showcase",
+    "sampleNote": "Sample products shown to preview the card design; replaced with your own from the dashboard.",
+    "allProducts": "View all products",
     "samples": {
-      "notebook": "A4 spiral notebook, 100 sheets",
-      "backpack": "School backpack",
-      "pencils": "Coloured pencils, 24 colours",
-      "calculator": "Scientific calculator"
-    },
-    "quickTitle": "Quick categories",
-    "quick": {
-      "notebooks": "Notebooks",
-      "pens": "Pens",
-      "bags": "School bags",
-      "colors": "Colours & drawing",
-      "paper": "Paper & files",
-      "calculators": "Calculators",
-      "geometry": "Geometry sets",
-      "learning": "Learning aids"
-    },
-    "needsTitle": "Browse by need",
-    "needsDescription": "Ready-made sets for every stage and use.",
-    "needs": {
-      "kg": {
-        "name": "Nursery & KG",
-        "items": "Colours, clay, colouring books"
+      "backpack": {
+        "name": "Water-resistant school backpack",
+        "description": "Comfortable back support, several roomy pockets, and materials that last the school year."
       },
-      "primary": {
-        "name": "Primary school",
-        "items": "Copybooks, pencil cases, bags"
+      "notebook": {
+        "name": "A5 ruled notebook",
+        "description": "High-quality paper, a sturdy cover, a page marker and a back pocket."
       },
-      "secondary": {
-        "name": "Prep & secondary",
-        "items": "Geometry sets, calculators"
-      },
-      "university": {
-        "name": "University",
-        "items": "Notebooks, files, drafting tools"
-      },
-      "office": {
-        "name": "Offices & companies",
-        "items": "Copy paper, inks, organisers"
+      "pencilSet": {
+        "name": "Technical pencil set",
+        "description": "A complete set for technical drawing and study, with a ruler and eraser."
       }
     },
-    "collection": {
-      "title": "Back to school collection",
-      "description": "Sample picks, shown only to preview the collection layout.",
-      "all": "Whole collection",
-      "image": "Lifestyle photo slot: products arranged on a desk",
-      "items": {
-        "pencilCase": "Fabric pencil case",
-        "pencilSet": "Pencil set",
-        "bottle": "Water bottle"
+    "brandsTitle": "Brands we stock",
+    "brandSlot": "[brand logo]",
+    "whyEyebrow": "Why Asmaa Stationery?",
+    "whyTitle": "A shopping experience that starts in the showroom",
+    "why": {
+      "authentic": {
+        "title": "Genuine products",
+        "description": "We buy from approved distributors so quality and durability are assured."
+      },
+      "advice": {
+        "title": "Help choosing",
+        "description": "We help you put together the school list accurately and within your budget."
+      },
+      "fast": {
+        "title": "Quick WhatsApp replies",
+        "description": "Send your list and we will go through it with you and prepare it before you arrive."
       }
     },
-    "services": {
-      "printing": {
-        "title": "Printing & copying",
-        "description": "Service description is added from the dashboard."
+    "contactEyebrow": "Contact us",
+    "contactTitle": "We are here for you all week",
+    "contact": {
+      "address": {
+        "label": "Address",
+        "value": "[store address]"
       },
-      "schoolLists": {
-        "title": "School list preparation",
-        "description": "Service description is added from the dashboard."
+      "phone": {
+        "label": "Phone",
+        "value": "[phone number]"
       },
-      "business": {
-        "title": "Company & school orders",
-        "description": "Service description is added from the dashboard."
+      "hours": {
+        "label": "Opening hours",
+        "value": "[opening hours]"
       }
     },
-    "visit": {
-      "title": "Visit the store",
-      "description": "See the products in person and choose for yourself.",
-      "addressLabel": "Address",
-      "address": "To be added",
-      "hoursLabel": "Hours",
-      "hours": "To be added",
-      "openMap": "Open in Maps",
-      "gallery": "Store gallery",
-      "image": "Storefront photo or map slot"
-    }
+    "mapTitle": "Find the store on the map",
+    "mapOpen": "Open in Google Maps",
+    "mapPlaceholder": "The map appears once the location link is added"
   },
   "Categories": {
     "school": {
       "name": "School supplies",
-      "description": "Notebooks, pens, bags, pencil cases, geometry sets"
+      "description": "Bags, pencil cases and classroom essentials"
+    },
+    "paper": {
+      "name": "Notebooks & paper",
+      "description": "Notebooks, copybooks, printing and drawing paper"
+    },
+    "writing": {
+      "name": "Pens & writing",
+      "description": "Ink, ballpoint, pencils and coloured pens"
     },
     "office": {
       "name": "Office supplies",
-      "description": "Paper, files, staplers, desk organisers, calculators"
-    },
-    "art": {
-      "name": "Art & drawing",
-      "description": "Coloured pencils, watercolours, brushes, sketchbooks, markers"
-    },
-    "educational": {
-      "name": "Educational supplies",
-      "description": "Educational books, learning cards, educational games"
+      "description": "Staplers, files and desk organisers"
     }
   },
   "Product": {
@@ -134,35 +140,31 @@
   },
   "WhatsApp": {
     "label": "Chat with us on WhatsApp",
+    "quickAsk": "Quick enquiry",
+    "ask": "Ask",
+    "message": "Message on WhatsApp",
     "greeting": "Hello, I would like to ask about your products.",
-    "ask": "Ask us on WhatsApp"
-  },
-  "Footer": {
-    "tagline": "School, office and art supplies.",
-    "browse": "Browse",
-    "more": "More",
-    "about": "About us",
-    "gallery": "Gallery",
-    "faq": "FAQ",
-    "privacy": "Privacy policy",
-    "rights": "© {store}. All rights reserved."
-  },
-  "NotFound": {
-    "title": "Page not found",
-    "description": "This page seems to have got lost among the notebooks.",
-    "backHome": "Back to home"
-  },
-  "Announcement": {
-    "text": "Back to school season: everything you need in one place"
-  },
-  "Search": {
-    "label": "Search products",
-    "placeholder": "Search for a product or brand",
-    "submit": "Search"
+    "about": "Hello, I would like to ask about: {name}"
   },
   "ComingSoon": {
     "badge": "Coming soon",
     "description": "This page is under construction and will be available soon.",
+    "backHome": "Back to home"
+  },
+  "Footer": {
+    "tagline": "Your destination for stationery, school supplies and office essentials.",
+    "browse": "Quick links",
+    "more": "More sections",
+    "services": "Our services",
+    "faq": "FAQ",
+    "privacy": "Privacy policy",
+    "quickContact": "Quick contact",
+    "quickContactText": "Message us on WhatsApp for any enquiry or to prepare a school list.",
+    "rights": "© {store}. All rights reserved (product showcase)."
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "This page seems to have got lost among the notebooks.",
     "backHome": "Back to home"
   }
 }

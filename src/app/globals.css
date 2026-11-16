@@ -3,61 +3,55 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #fbf7ef;
-  --foreground: #1b2a4a;
+  --background: #f8fafc;
+  --foreground: #1e293b;
+  --heading: #172554;
   --surface: #ffffff;
-  --muted: #44506a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --secondary: #2563eb;
+  --secondary-soft: #eff6ff;
 }
 
 .dark {
-  --background: #121c33;
-  --foreground: #fbf7ef;
-  --surface: #1b2a4a;
-  --muted: #c3cadb;
+  --background: #0b1220;
+  --foreground: #e2e8f0;
+  --heading: #f1f5f9;
+  --surface: #172554;
+  --muted: #94a3b8;
+  --line: #334155;
+  --secondary: #60a5fa;
+  --secondary-soft: #1e3a8a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-heading: var(--heading);
   --color-surface: var(--surface);
   --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-secondary: var(--secondary);
+  --color-secondary-soft: var(--secondary-soft);
 
-  --color-paper: #fbf7ef;
-  --color-ink: #1b2a4a;
-  --color-pencil: #f5b82e;
-  --color-pencil-soft: #fdf0cc;
-  --color-ruler: #1f9e8f;
-  --color-ruler-soft: #d6f0ec;
-  --color-eraser: #f2695c;
-  --color-eraser-soft: #fcddd9;
-  --color-marker: #2f6fed;
-  --color-marker-soft: #dce7fd;
-  --color-whatsapp: #25d366;
-  --color-whatsapp-ink: #0f2b1a;
+  /* Fixed brand colours: always the same in both themes. */
+  --color-primary: #172554;
+  --color-accent: #fbbf24;
+  --color-whatsapp: #059669;
+  --color-whatsapp-hover: #047857;
 
-  --font-sans: var(--font-body), system-ui, sans-serif;
-  --font-heading: var(--font-heading), system-ui, sans-serif;
+  --font-sans: var(--font-cairo), system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-size: 17px;
   line-height: 1.8;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-marker);
+  outline: 2px solid var(--secondary);
   outline-offset: 2px;
-}
-
-/* Dot-grid paper texture used behind hero artwork. */
-.paper-dots {
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--foreground) 16%, transparent) 1.5px,
-    transparent 1.5px
-  );
-  background-size: 22px 22px;
 }
 
 @media (prefers-reduced-motion: reduce) {
