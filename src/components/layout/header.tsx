@@ -19,11 +19,11 @@ export async function Header() {
       <div className="relative mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-heading text-xl font-bold"
+          className="flex min-w-0 items-center gap-2.5 font-heading text-[15px] font-bold leading-tight sm:text-xl"
         >
           <span
             aria-hidden
-            className="grid size-10 place-items-center rounded-xl bg-pencil text-ink"
+            className="grid size-10 shrink-0 place-items-center rounded-xl bg-pencil text-ink"
           >
             <PencilLine className="size-5" />
           </span>
@@ -45,7 +45,7 @@ export async function Header() {
           ))}
         </nav>
 
-        <div className="ms-auto flex items-center gap-2">
+        <div className="ms-auto flex shrink-0 items-center gap-2">
           <LocaleSwitcher label={common("switchLocale")} />
           <ThemeToggle label={common("toggleTheme")} />
           <MobileMenu
