@@ -24,11 +24,12 @@
     "contact": "تواصل معنا",
     "catalog": "الكتالوج",
     "openMenu": "فتح القائمة",
-    "closeMenu": "إغلاق القائمة"
+    "closeMenu": "إغلاق القائمة",
+    "skipToContent": "تخطّي إلى المحتوى"
   },
   "Search": {
     "label": "ابحث في المنتجات",
-    "placeholder": "ابحث عن دفتر، قلم، حقيبة...",
+    "placeholder": "ابحث عن دفتر، قلم، حقيبة…",
     "submit": "بحث"
   },
   "Home": {

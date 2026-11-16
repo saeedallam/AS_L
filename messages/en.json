@@ -24,11 +24,12 @@
     "contact": "Contact",
     "catalog": "Catalogue",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content"
   },
   "Search": {
     "label": "Search products",
-    "placeholder": "Search for a notebook, pen, bag...",
+    "placeholder": "Search for a notebook, pen, bag…",
     "submit": "Search"
   },
   "Home": {

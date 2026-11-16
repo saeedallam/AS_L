@@ -21,6 +21,8 @@ export async function SearchForm({ className }: { className?: string }) {
       <input
         type="search"
         name="q"
+        autoComplete="off"
+        spellCheck={false}
         aria-label={t("label")}
         placeholder={t("placeholder")}
         className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-subtle"
