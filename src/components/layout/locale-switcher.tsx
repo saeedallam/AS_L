@@ -13,7 +13,7 @@ export function LocaleSwitcher({ label }: { label: string }) {
       href={pathname}
       locale={target}
       lang={target}
-      className="inline-flex min-h-11 items-center rounded-xl border border-line px-3 text-xs font-bold text-heading transition hover:bg-background"
+      className="grid h-11 min-w-11 place-items-center border border-rule px-2 text-sm font-semibold transition-colors hover:border-ink/40"
     >
       {label}
     </Link>

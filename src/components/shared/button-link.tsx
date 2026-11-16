@@ -3,16 +3,15 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 const variants = {
-  primary: "bg-primary text-white shadow-xl shadow-primary/20 hover:bg-blue-900",
-  outline:
-    "border-2 border-line bg-surface text-foreground hover:border-brand hover:text-brand",
-  soft: "bg-background border border-line text-heading hover:bg-line/60",
+  solid: "bg-ink text-paper hover:bg-ink/90",
+  outline: "border border-ink/35 text-ink hover:bg-ink/5",
+  pencil: "bg-pencil text-[#14213d] hover:brightness-95",
 } as const;
 
 const sizes = {
-  sm: "min-h-11 px-4 text-xs",
-  md: "min-h-12 px-5 text-sm",
-  lg: "min-h-14 px-8 text-base",
+  sm: "min-h-11 px-4 text-sm",
+  md: "min-h-12 px-5 text-[15px]",
+  lg: "min-h-14 px-7 text-base",
 } as const;
 
 type Props = ComponentProps<typeof Link> & {
@@ -21,7 +20,7 @@ type Props = ComponentProps<typeof Link> & {
 };
 
 export function ButtonLink({
-  variant = "primary",
+  variant = "solid",
   size = "md",
   className,
   ...props
@@ -29,7 +28,7 @@ export function ButtonLink({
   return (
     <Link
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-2xl font-bold transition",
+        "inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors",
         variants[variant],
         sizes[size],
         className,

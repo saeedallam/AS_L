@@ -1,7 +1,6 @@
-import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/** Shown wherever a real photo has not been uploaded yet. */
+/** Where a photo will go. Drawn as a cropping frame, not a grey box. */
 export function ImagePlaceholder({
   label,
   className,
@@ -14,12 +13,15 @@ export function ImagePlaceholder({
       role="img"
       aria-label={label}
       className={cn(
-        "flex size-full flex-col items-center justify-center gap-2 border-2 border-dashed border-line bg-background text-xs text-subtle",
+        "relative grid size-full place-items-center bg-paper p-4 text-center text-xs text-quiet",
         className,
       )}
     >
-      <ImageIcon aria-hidden className="size-6" />
-      {label}
+      <span
+        aria-hidden
+        className="absolute inset-3 border border-dashed border-ink/25"
+      />
+      <span className="relative">{label}</span>
     </div>
   );
 }

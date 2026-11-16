@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { WhatsAppButton } from "./whatsapp-button";
 
-/** Floating WhatsApp button. Renders nothing until a number is configured. */
+/** Floating WhatsApp button on small screens, where the header button is hidden. */
 export async function WhatsAppFab() {
   const t = await getTranslations("WhatsApp");
   const url = buildWhatsAppUrl(siteConfig.whatsappNumber, t("greeting"));
@@ -14,8 +14,8 @@ export async function WhatsAppFab() {
       href={url}
       label={t("label")}
       iconOnly
-      className="fixed bottom-5 end-5 z-50 size-14 rounded-full border-2 border-background shadow-xl shadow-whatsapp/30 md:hidden"
-      iconClassName="size-7"
+      className="fixed bottom-5 end-5 z-50 size-14 rounded-full lg:hidden"
+      iconClassName="size-6"
     />
   );
 }

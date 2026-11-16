@@ -1,71 +1,34 @@
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
 
 type Props = {
-  /** Small pill above the title. */
-  eyebrow?: string;
   title: string;
   description?: string;
   action?: { label: string; href: string };
-  align?: "start" | "center";
 };
 
-export async function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  action,
-  align = "start",
-}: Props) {
-  const locale = await getLocale();
-  const Arrow = locale === "ar" ? ArrowLeft : ArrowRight;
-
-  if (align === "center") {
-    return (
-      <div className="mx-auto mb-12 max-w-2xl text-center">
-        {eyebrow ? (
-          <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
-            {eyebrow}
-          </span>
-        ) : null}
-        <h2 className="mt-3 text-2xl font-black text-heading sm:text-3xl">
-          {title}
-        </h2>
-        {description ? (
-          <p className="mt-2 text-sm text-subtle">{description}</p>
-        ) : null}
-      </div>
-    );
-  }
-
+/**
+ * A section opener. The red tick on the margin rule marks where the
+ * section starts, the way a heading is marked in a ruled notebook.
+ */
+export function SectionHeading({ title, description, action }: Props) {
   return (
-    <div
-      className={cn(
-        "mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between",
-      )}
-    >
+    <div className="rule-tick relative mb-7 flex flex-wrap items-end justify-between gap-x-8 gap-y-2 border-b border-rule pb-3">
       <div>
-        {eyebrow ? (
-          <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
-            {eyebrow}
-          </span>
-        ) : null}
-        <h2 className="mt-3 text-2xl font-black text-heading sm:text-3xl">
+        <h2 className="text-balance font-display text-2xl font-bold leading-tight sm:text-[1.75rem]">
           {title}
         </h2>
         {description ? (
-          <p className="mt-2 text-sm text-subtle">{description}</p>
+          <p className="mt-1.5 max-w-prose text-[15px] text-quiet">
+            {description}
+          </p>
         ) : null}
       </div>
       {action ? (
         <Link
           href={action.href}
-          className="inline-flex items-center gap-2 font-bold text-heading transition hover:text-brand"
+          className="pb-1 text-[15px] font-semibold text-link underline underline-offset-4"
         >
-          <span>{action.label}</span>
-          <Arrow aria-hidden className="size-4" />
+          {action.label}
         </Link>
       ) : null}
     </div>
