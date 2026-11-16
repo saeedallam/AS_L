@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { mainNav } from "@/lib/site-config";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
+import { SearchForm } from "./search-form";
 import { ThemeToggle } from "./theme-toggle";
 
 export async function Header() {
@@ -16,7 +17,7 @@ export async function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-foreground/10 bg-background">
-      <div className="relative mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
+      <div className="relative mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-3 px-4 py-3 sm:px-6">
         <Link
           href="/"
           className="flex min-w-0 items-center gap-2.5 font-heading text-[15px] font-bold leading-tight sm:text-xl"
@@ -30,22 +31,10 @@ export async function Header() {
           {common("storeName")}
         </Link>
 
-        <nav
-          aria-label={t("label")}
-          className="ms-4 hidden items-center gap-6 text-[15px] font-medium lg:flex"
-        >
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="underline-offset-8 hover:underline"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        {/* On phones the search drops to its own full-width row. */}
+        <SearchForm className="order-last w-full md:order-none md:w-auto md:flex-1" />
 
-        <div className="ms-auto flex shrink-0 items-center gap-2">
+        <div className="ms-auto flex shrink-0 items-center gap-2 md:ms-0">
           <LocaleSwitcher label={common("switchLocale")} />
           <ThemeToggle label={common("toggleTheme")} />
           <MobileMenu
@@ -58,6 +47,21 @@ export async function Header() {
           />
         </div>
       </div>
+
+      <nav
+        aria-label={t("label")}
+        className="mx-auto hidden max-w-6xl items-center gap-7 px-6 pb-3 text-base font-medium lg:flex"
+      >
+        {items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="underline-offset-8 hover:underline"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }

@@ -19,7 +19,7 @@ export async function Footer() {
 
         <nav aria-label={t("browse")} className="flex flex-col gap-1.5">
           <p className="font-bold">{t("browse")}</p>
-          {mainNav.slice(1).map((item) => (
+          {mainNav.map((item) => (
             <Link
               key={item.href}
               href={item.href}

@@ -2,14 +2,15 @@
 // website_settings table so they can be edited from the dashboard.
 export const siteConfig = {
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
+  mapUrl: process.env.NEXT_PUBLIC_MAP_URL ?? "",
 };
 
 export const mainNav = [
-  { key: "home", href: "/" },
-  { key: "products", href: "/products" },
   { key: "categories", href: "/categories" },
+  { key: "products", href: "/products" },
   { key: "brands", href: "/brands" },
   { key: "services", href: "/services" },
+  { key: "visit", href: "/#visit" },
   { key: "contact", href: "/contact" },
 ] as const;
 
