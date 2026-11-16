@@ -1,16 +1,44 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ---------------------------------------------------------------
+   Store palette. `brand`, `gold` and `subtle` are ours; the names
+   below them (card, muted, ring, ...) are the ones shadcn/ui
+   components expect, mapped onto the same palette so anything
+   added with `npx shadcn add` matches the site straight away.
+   --------------------------------------------------------------- */
+
 :root {
+  --radius: 1rem;
+
   --background: #f8fafc;
   --foreground: #1e293b;
   --heading: #172554;
   --surface: #ffffff;
-  --muted: #64748b;
+  --subtle: #64748b;
   --line: #e2e8f0;
-  --secondary: #2563eb;
-  --secondary-soft: #eff6ff;
+  --brand: #2563eb;
+  --brand-soft: #eff6ff;
+
+  --card: #ffffff;
+  --card-foreground: #1e293b;
+  --popover: #ffffff;
+  --popover-foreground: #1e293b;
+  --primary: #172554;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #172554;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #eff6ff;
+  --accent-foreground: #172554;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #2563eb;
 }
 
 .dark {
@@ -18,27 +46,69 @@
   --foreground: #e2e8f0;
   --heading: #f1f5f9;
   --surface: #172554;
-  --muted: #94a3b8;
+  --subtle: #94a3b8;
   --line: #334155;
-  --secondary: #60a5fa;
-  --secondary-soft: #1e3a8a;
+  --brand: #60a5fa;
+  --brand-soft: #1e3a8a;
+
+  --card: #172554;
+  --card-foreground: #e2e8f0;
+  --popover: #172554;
+  --popover-foreground: #e2e8f0;
+  --primary: #172554;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e3a8a;
+  --accent-foreground: #f1f5f9;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #334155;
+  --input: #334155;
+  --ring: #60a5fa;
 }
 
 @theme inline {
+  /* Ours */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-heading: var(--heading);
   --color-surface: var(--surface);
-  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
   --color-line: var(--line);
-  --color-secondary: var(--secondary);
-  --color-secondary-soft: var(--secondary-soft);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
 
-  /* Fixed brand colours: always the same in both themes. */
-  --color-primary: #172554;
-  --color-accent: #fbbf24;
+  /* Fixed brand colours: identical in both themes. */
+  --color-gold: #fbbf24;
   --color-whatsapp: #059669;
   --color-whatsapp-hover: #047857;
+
+  /* shadcn/ui */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 
   --font-sans: var(--font-cairo), system-ui, sans-serif;
 }
@@ -50,7 +120,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--secondary);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 

@@ -26,7 +26,7 @@ export async function SectionHeading({
     return (
       <div className="mx-auto mb-12 max-w-2xl text-center">
         {eyebrow ? (
-          <span className="rounded-full bg-secondary-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-secondary">
+          <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
             {eyebrow}
           </span>
         ) : null}
@@ -34,7 +34,7 @@ export async function SectionHeading({
           {title}
         </h2>
         {description ? (
-          <p className="mt-2 text-sm text-muted">{description}</p>
+          <p className="mt-2 text-sm text-subtle">{description}</p>
         ) : null}
       </div>
     );
@@ -48,7 +48,7 @@ export async function SectionHeading({
     >
       <div>
         {eyebrow ? (
-          <span className="rounded-full bg-secondary-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-secondary">
+          <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
             {eyebrow}
           </span>
         ) : null}
@@ -56,13 +56,13 @@ export async function SectionHeading({
           {title}
         </h2>
         {description ? (
-          <p className="mt-2 text-sm text-muted">{description}</p>
+          <p className="mt-2 text-sm text-subtle">{description}</p>
         ) : null}
       </div>
       {action ? (
         <Link
           href={action.href}
-          className="inline-flex items-center gap-2 font-bold text-heading transition hover:text-secondary"
+          className="inline-flex items-center gap-2 font-bold text-heading transition hover:text-brand"
         >
           <span>{action.label}</span>
           <Arrow aria-hidden className="size-4" />

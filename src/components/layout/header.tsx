@@ -27,7 +27,7 @@ export async function Header() {
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <span
             aria-hidden
-            className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-secondary text-accent shadow-md"
+            className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-brand text-gold shadow-md"
           >
             <Feather className="size-6" />
           </span>
@@ -35,7 +35,7 @@ export async function Header() {
             <span className="block truncate text-lg font-extrabold leading-tight text-heading sm:text-xl">
               {common("storeNameShort")}
             </span>
-            <span className="hidden truncate text-xs font-medium tracking-wide text-muted sm:block">
+            <span className="hidden truncate text-xs font-medium tracking-wide text-subtle sm:block">
               {common("storeTagline")}
             </span>
           </span>
@@ -49,7 +49,7 @@ export async function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="transition hover:text-secondary"
+              className="transition hover:text-brand"
             >
               {item.label}
             </Link>

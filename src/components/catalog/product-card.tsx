@@ -50,7 +50,7 @@ export function ProductCard({
 
         <div className="p-5 sm:p-6">
           {meta ? (
-            <p className="mb-1 text-xs font-medium text-muted">{meta}</p>
+            <p className="mb-1 text-xs font-medium text-subtle">{meta}</p>
           ) : null}
           <h3 className="mb-2 text-lg font-bold text-heading sm:text-xl">
             {/* Stretched link: the whole card opens the product. */}
@@ -59,7 +59,7 @@ export function ProductCard({
             </Link>
           </h3>
           {description ? (
-            <p className="line-clamp-2 text-xs text-muted">{description}</p>
+            <p className="line-clamp-2 text-xs text-subtle">{description}</p>
           ) : null}
         </div>
       </div>

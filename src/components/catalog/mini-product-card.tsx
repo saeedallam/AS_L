@@ -27,11 +27,11 @@ export function MiniProductCard({
       </span>
       <span className="min-w-0 flex-1">
         {category ? (
-          <span className="block text-[10px] text-muted">{category}</span>
+          <span className="block text-[10px] text-subtle">{category}</span>
         ) : null}
         <span className="block text-xs font-bold text-heading">{name}</span>
         {price ? (
-          <span className="block text-xs font-black text-secondary">
+          <span className="block text-xs font-black text-brand">
             {price}
           </span>
         ) : null}

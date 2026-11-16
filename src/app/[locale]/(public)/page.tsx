@@ -77,20 +77,20 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       <section className="border-b border-line bg-gradient-to-b from-surface to-background py-14 lg:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           <div className="space-y-6 lg:col-span-7">
-            <p className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary-soft px-3 py-1.5 text-xs font-bold text-secondary">
+            <p className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3 py-1.5 text-xs font-bold text-brand">
               <span
                 aria-hidden
-                className="size-2 animate-pulse rounded-full bg-secondary"
+                className="size-2 animate-pulse rounded-full bg-brand"
               />
               {t("badge")}
             </p>
             <h1 className="text-3xl font-black leading-tight text-heading sm:text-5xl lg:text-6xl">
               {t("titleStart")}{" "}
-              <span className="text-secondary underline decoration-accent decoration-wavy">
+              <span className="text-brand underline decoration-gold decoration-wavy">
                 {t("titleAccent")}
               </span>
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            <p className="max-w-2xl text-base leading-relaxed text-subtle sm:text-lg">
               {t("subtitle")}
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -109,7 +109,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                   <dd className="text-xl font-black text-heading sm:text-2xl">
                     {t(`stats.${key}.value`)}
                   </dd>
-                  <p className="mt-1 text-xs font-medium text-muted">
+                  <p className="mt-1 text-xs font-medium text-subtle">
                     {t(`stats.${key}.label`)}
                   </p>
                 </div>
@@ -125,12 +125,12 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               <p className="absolute bottom-7 end-7 flex items-center gap-3 rounded-2xl border border-line bg-surface/90 px-5 py-3 shadow-lg backdrop-blur-md">
                 <span
                   aria-hidden
-                  className="grid size-10 place-items-center rounded-xl bg-accent text-primary"
+                  className="grid size-10 place-items-center rounded-xl bg-gold text-primary"
                 >
                   <ShieldCheck className="size-5" />
                 </span>
                 <span>
-                  <span className="block text-xs font-medium text-muted">
+                  <span className="block text-xs font-medium text-subtle">
                     {t("heroBadgeLabel")}
                   </span>
                   <span className="block text-sm font-bold text-heading">
@@ -196,14 +196,14 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
       {/* Brands */}
       <section className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <h2 className="mb-8 text-center text-sm font-bold uppercase tracking-wider text-muted">
+        <h2 className="mb-8 text-center text-sm font-bold uppercase tracking-wider text-subtle">
           {t("brandsTitle")}
         </h2>
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
           {Array.from({ length: 6 }, (_, index) => (
             <li
               key={index}
-              className="grid min-h-20 place-items-center rounded-2xl border-2 border-dashed border-line bg-surface px-3 text-center text-xs text-muted"
+              className="grid min-h-20 place-items-center rounded-2xl border-2 border-dashed border-line bg-surface px-3 text-center text-xs text-subtle"
             >
               {t("brandSlot")}
             </li>
@@ -215,7 +215,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       <section className="bg-primary py-16 text-white lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-2xl text-center">
-            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-accent">
+            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">
               {t("whyEyebrow")}
             </span>
             <h2 className="mt-3 text-2xl font-black sm:text-3xl">
@@ -230,7 +230,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               >
                 <span
                   aria-hidden
-                  className="mb-6 grid size-14 place-items-center rounded-2xl bg-accent text-primary"
+                  className="mb-6 grid size-14 place-items-center rounded-2xl bg-gold text-primary"
                 >
                   <Icon className="size-6" />
                 </span>
@@ -254,7 +254,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         <div className="rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-10">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
-              <span className="rounded-full bg-secondary-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-secondary">
+              <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
                 {t("contactEyebrow")}
               </span>
               <h2 className="mb-7 mt-3 text-2xl font-black text-heading sm:text-3xl">
@@ -265,7 +265,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                   <div key={key} className="flex items-start gap-4">
                     <span
                       aria-hidden
-                      className="grid size-12 shrink-0 place-items-center rounded-2xl bg-secondary-soft text-secondary"
+                      className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand"
                     >
                       <Icon className="size-5" />
                     </span>
@@ -273,7 +273,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                       <dt className="font-bold text-heading">
                         {t(`contact.${key}.label`)}
                       </dt>
-                      <dd className="mt-0.5 text-sm text-muted">
+                      <dd className="mt-0.5 text-sm text-subtle">
                         {t(`contact.${key}.value`)}
                       </dd>
                     </div>
@@ -306,7 +306,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                     <span>
                       <MapPin
                         aria-hidden
-                        className="mx-auto mb-2 size-8 text-secondary"
+                        className="mx-auto mb-2 size-8 text-brand"
                       />
                       <span className="block font-bold text-heading">
                         {t("mapOpen")}

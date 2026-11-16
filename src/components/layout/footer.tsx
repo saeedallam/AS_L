@@ -27,7 +27,7 @@ export async function Footer() {
           </div>
 
           <nav aria-label={t("browse")} className="flex flex-col gap-2">
-            <p className="mb-2 text-sm font-bold text-accent">{t("browse")}</p>
+            <p className="mb-2 text-sm font-bold text-gold">{t("browse")}</p>
             {mainNav.map((item) => (
               <Link
                 key={item.href}
@@ -40,7 +40,7 @@ export async function Footer() {
           </nav>
 
           <nav aria-label={t("more")} className="flex flex-col gap-2">
-            <p className="mb-2 text-sm font-bold text-accent">{t("more")}</p>
+            <p className="mb-2 text-sm font-bold text-gold">{t("more")}</p>
             {footerNav.map((item) => (
               <Link
                 key={item.href}
@@ -53,7 +53,7 @@ export async function Footer() {
           </nav>
 
           <div className="space-y-4">
-            <p className="text-sm font-bold text-accent">{t("quickContact")}</p>
+            <p className="text-sm font-bold text-gold">{t("quickContact")}</p>
             <p className="text-xs text-slate-300">{t("quickContactText")}</p>
             {whatsappUrl ? (
               <WhatsAppButton

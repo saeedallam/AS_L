@@ -8,7 +8,7 @@ export async function AnnouncementBar() {
 
   return (
     <p className="bg-primary px-4 py-2 text-center text-xs font-medium text-white">
-      <span className="me-2 rounded bg-accent px-2 py-0.5 text-[10px] font-bold text-primary">
+      <span className="me-2 rounded bg-gold px-2 py-0.5 text-[10px] font-bold text-primary">
         {t("badge")}
       </span>
       {text}
