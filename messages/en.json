@@ -3,14 +3,79 @@
     "title": "My Stationery | School & Office Supplies",
     "description": "Everything you need for school, office and art in one place."
   },
-  "Home": {
-    "badge": "Coming soon",
-    "title": "All your school and office supplies in one place",
-    "subtitle": "The site is under construction. This page confirms the base setup works: Arabic, right-to-left layout and dark mode."
-  },
   "Common": {
+    "storeName": "My Stationery",
     "switchLocale": "العربية",
     "toggleTheme": "Toggle dark mode"
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "brands": "Brands",
+    "services": "Services",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "Home": {
+    "badge": "Back to school season",
+    "title": "All your school and office supplies in one place",
+    "subtitle": "Browse categories and products, and ask us about any item directly on WhatsApp.",
+    "browseProducts": "Browse products",
+    "contactUs": "Contact us",
+    "heroImage": "Main photo of the store or a product collection",
+    "stickerNew": "Just arrived",
+    "stickerBrands": "Original brands",
+    "categoriesTitle": "Main categories",
+    "allCategories": "All categories",
+    "featuredTitle": "Featured products",
+    "sampleNote": "Sample products, shown only to preview the card design.",
+    "allProducts": "All products",
+    "samples": {
+      "notebook": "A4 spiral notebook, 100 sheets",
+      "backpack": "School backpack",
+      "pencils": "Coloured pencils, 24 colours",
+      "calculator": "Scientific calculator"
+    }
+  },
+  "Categories": {
+    "school": {
+      "name": "School supplies",
+      "description": "Notebooks, pens, bags, pencil cases, geometry sets"
+    },
+    "office": {
+      "name": "Office supplies",
+      "description": "Paper, files, staplers, desk organisers, calculators"
+    },
+    "art": {
+      "name": "Art & drawing",
+      "description": "Coloured pencils, watercolours, brushes, sketchbooks, markers"
+    },
+    "educational": {
+      "name": "Educational supplies",
+      "description": "Educational books, learning cards, educational games"
+    }
+  },
+  "Product": {
+    "details": "Details",
+    "new": "New",
+    "noImage": "Product image"
+  },
+  "WhatsApp": {
+    "label": "Chat with us on WhatsApp",
+    "greeting": "Hello, I would like to ask about your products."
+  },
+  "Footer": {
+    "tagline": "School, office and art supplies.",
+    "browse": "Browse",
+    "more": "More",
+    "about": "About us",
+    "gallery": "Gallery",
+    "faq": "FAQ",
+    "privacy": "Privacy policy",
+    "rights": "© {store}. All rights reserved."
   },
   "NotFound": {
     "title": "Page not found",

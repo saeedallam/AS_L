@@ -12,7 +12,8 @@ export function LocaleSwitcher({ label }: { label: string }) {
     <Link
       href={pathname}
       locale={target}
-      className="rounded-full border border-foreground/15 px-4 py-2 text-sm font-medium transition-colors hover:bg-foreground/5"
+      lang={target}
+      className="inline-flex min-h-11 items-center rounded-full border border-foreground/15 px-4 text-sm font-medium transition-colors hover:bg-foreground/5"
     >
       {label}
     </Link>

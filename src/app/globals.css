@@ -5,22 +5,36 @@
 :root {
   --background: #fbf7ef;
   --foreground: #1b2a4a;
+  --surface: #ffffff;
+  --muted: #44506a;
 }
 
 .dark {
   --background: #121c33;
   --foreground: #fbf7ef;
+  --surface: #1b2a4a;
+  --muted: #c3cadb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+
   --color-paper: #fbf7ef;
   --color-ink: #1b2a4a;
   --color-pencil: #f5b82e;
+  --color-pencil-soft: #fdf0cc;
   --color-ruler: #1f9e8f;
+  --color-ruler-soft: #d6f0ec;
   --color-eraser: #f2695c;
+  --color-eraser-soft: #fcddd9;
   --color-marker: #2f6fed;
+  --color-marker-soft: #dce7fd;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-ink: #0f2b1a;
+
   --font-sans: var(--font-body), system-ui, sans-serif;
   --font-heading: var(--font-heading), system-ui, sans-serif;
 }
@@ -28,4 +42,29 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-marker);
+  outline-offset: 2px;
+}
+
+/* Dot-grid paper texture used behind hero artwork. */
+.paper-dots {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--foreground) 16%, transparent) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
