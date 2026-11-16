@@ -4,7 +4,6 @@ import { WhatsAppIcon } from "./whatsapp-icon";
 type Props = {
   href: string;
   label: string;
-  /** Hide the text and show the icon alone (used on compact cards). */
   iconOnly?: boolean;
   className?: string;
   iconClassName?: string;
@@ -24,7 +23,7 @@ export function WhatsAppButton({
       rel="noopener noreferrer"
       aria-label={iconOnly ? label : undefined}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-2xl bg-whatsapp font-bold text-white transition hover:bg-whatsapp-hover",
+        "inline-flex items-center justify-center gap-2 rounded-md bg-whatsapp font-semibold text-white transition-[filter] hover:brightness-110",
         className,
       )}
     >

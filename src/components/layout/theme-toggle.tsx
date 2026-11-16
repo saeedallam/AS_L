@@ -11,10 +11,10 @@ export function ThemeToggle({ label }: { label: string }) {
       type="button"
       aria-label={label}
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="grid size-11 place-items-center rounded-xl border border-line text-heading transition hover:bg-background"
+      className="grid size-11 place-items-center rounded-md border border-line transition-colors hover:border-ink/40"
     >
-      <Moon aria-hidden className="size-5 dark:hidden" />
-      <Sun aria-hidden className="hidden size-5 dark:block" />
+      <Moon aria-hidden className="size-4 dark:hidden" strokeWidth={1.75} />
+      <Sun aria-hidden className="hidden size-4 dark:block" strokeWidth={1.75} />
     </button>
   );
 }

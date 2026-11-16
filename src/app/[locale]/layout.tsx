@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cairo } from "next/font/google";
+import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -7,18 +7,18 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { getDirection, routing } from "@/i18n/routing";
 import "../globals.css";
 
-// One family for Arabic and Latin, as in the approved design.
-const cairo = Cairo({
-  variable: "--font-cairo",
+// One family for the whole site. Contrast comes from size and weight.
+const plex = IBM_Plex_Sans_Arabic({
+  variable: "--font-plex",
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f4f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#141a22" },
   ],
 };
 
@@ -49,7 +49,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={getDirection(locale)}
-      className={`${cairo.variable} h-full antialiased`}
+      className={`${plex.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col font-sans">

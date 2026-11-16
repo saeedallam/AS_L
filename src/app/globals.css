@@ -4,91 +4,103 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------
-   Store palette. `brand`, `gold` and `subtle` are ours; the names
-   below them (card, muted, ring, ...) are the ones shadcn/ui
-   components expect, mapped onto the same palette so anything
-   added with `npx shadcn add` matches the site straight away.
+   الفهرس اللوني — Colour Index
+   Neutral base, one action colour, and a set of index colours that
+   appear only as thin edges and marks. The shadcn/ui names below
+   map onto the same palette, so components added with
+   `npx shadcn add` match the site without editing.
    --------------------------------------------------------------- */
 
 :root {
   color-scheme: light;
-  --radius: 1rem;
+  --radius: 0.25rem;
 
-  --background: #f8fafc;
-  --foreground: #1e293b;
-  --heading: #172554;
+  --paper: #f5f4f1;
   --surface: #ffffff;
-  --subtle: #64748b;
-  --line: #e2e8f0;
-  --brand: #2563eb;
-  --brand-soft: #eff6ff;
+  --ink: #16243c;
+  --graphite: #3a4659;
+  --line: #e3e1db;
+  --brand: #0f6e70;
+  --brand-ink: #0b5456;
 
-  --card: #ffffff;
-  --card-foreground: #1e293b;
-  --popover: #ffffff;
-  --popover-foreground: #1e293b;
-  --primary: #172554;
+  /* Index colours. Each is dark enough to pass 4.5:1 on white,
+     so the same value works as an edge and as text. */
+  --idx-school: #8a5f1b;
+  --idx-paper: #2f6f6b;
+  --idx-writing: #3b5ba5;
+  --idx-art: #af4448;
+  --idx-office: #545a66;
+  --idx-learning: #6b5ba8;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #172554;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #eff6ff;
-  --accent-foreground: #172554;
-  --destructive: #dc2626;
+  --secondary: #ebe9e4;
+  --secondary-foreground: var(--ink);
+  --muted: #ebe9e4;
+  --muted-foreground: var(--graphite);
+  --accent: #e6efef;
+  --accent-foreground: var(--brand-ink);
+  --destructive: #b3261e;
   --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #2563eb;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--brand);
 }
 
 .dark {
   color-scheme: dark;
-  --background: #0b1220;
-  --foreground: #e2e8f0;
-  --heading: #f1f5f9;
-  --surface: #172554;
-  --subtle: #94a3b8;
-  --line: #334155;
-  --brand: #60a5fa;
-  --brand-soft: #1e3a8a;
 
-  --card: #172554;
-  --card-foreground: #e2e8f0;
-  --popover: #172554;
-  --popover-foreground: #e2e8f0;
-  --primary: #172554;
-  --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f1f5f9;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e3a8a;
-  --accent-foreground: #f1f5f9;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #334155;
-  --input: #334155;
-  --ring: #60a5fa;
+  --paper: #141a22;
+  --surface: #1c232e;
+  --ink: #eceae4;
+  --graphite: #a4adbb;
+  --line: #2d3644;
+  --brand: #4fb3b5;
+  --brand-ink: #7ccacb;
+
+  --idx-school: #d6a24e;
+  --idx-paper: #63a9a4;
+  --idx-writing: #7d9ad8;
+  --idx-art: #e08488;
+  --idx-office: #9aa2b0;
+  --idx-learning: #a697dd;
+
+  --secondary: #252e3c;
+  --secondary-foreground: var(--ink);
+  --muted: #252e3c;
+  --muted-foreground: var(--graphite);
+  --accent: #1f3a3b;
+  --accent-foreground: var(--brand-ink);
+  --primary: #eceae4;
+  --primary-foreground: #141a22;
+  --destructive: #e5675d;
 }
 
 @theme inline {
-  /* Ours */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-heading: var(--heading);
+  --color-paper: var(--paper);
   --color-surface: var(--surface);
-  --color-subtle: var(--subtle);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
   --color-line: var(--line);
   --color-brand: var(--brand);
-  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+  --color-whatsapp: #0b7a4b;
 
-  /* Fixed brand colours: identical in both themes. */
-  --color-gold: #fbbf24;
-  --color-whatsapp: #059669;
-  --color-whatsapp-hover: #047857;
+  --color-idx-school: var(--idx-school);
+  --color-idx-paper: var(--idx-paper);
+  --color-idx-writing: var(--idx-writing);
+  --color-idx-art: var(--idx-art);
+  --color-idx-office: var(--idx-office);
+  --color-idx-learning: var(--idx-learning);
 
-  /* shadcn/ui */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -107,32 +119,75 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 2px;
+  --radius-md: var(--radius);
+  --radius-lg: 0.5rem;
 
-  --font-sans: var(--font-cairo), system-ui, sans-serif;
+  --font-sans: var(--font-plex), system-ui, sans-serif;
+
+  /* One shadow in the whole site, for menus and overlays. */
+  --shadow-menu: 0 8px 24px rgb(22 36 60 / 0.1);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  line-height: 1.8;
-  /* No 300ms double-tap delay; a deliberate, quiet tap highlight. */
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.75;
+  font-variant-numeric: tabular-nums;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: color-mix(in srgb, var(--brand) 18%, transparent);
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--brand) 16%, transparent);
 }
 
 h1,
 h2,
 h3 {
   text-wrap: balance;
+  letter-spacing: -0.015em;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 :focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: 2px;
+  outline-offset: 3px;
+}
+
+/* An element carrying its category's index colour sets --idx inline. */
+.idx-edge {
+  border-inline-start: 3px solid var(--idx, var(--line));
+  transition: border-inline-start-width 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.idx-edge:hover,
+.idx-edge:focus-within {
+  border-inline-start-width: 6px;
+}
+
+/* The single orchestrated moment: the hero settles once on load. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.rise-2 {
+  animation-delay: 90ms;
+}
+
+.rise-3 {
+  animation-delay: 170ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -140,6 +195,7 @@ h3 {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

@@ -1,209 +1,172 @@
-import {
-  ArrowLeft,
-  ArrowRight,
-  Book,
-  Briefcase,
-  Clock,
-  Handshake,
-  MapPin,
-  PenTool,
-  Phone,
-  School,
-  ShieldCheck,
-  Zap,
-} from "lucide-react";
 import { hasLocale } from "next-intl";
-import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { CategoryCard } from "@/components/catalog/category-card";
-import { ProductCard } from "@/components/catalog/product-card";
+import { CategoryRow } from "@/components/catalog/category-row";
+import { ProductFigure } from "@/components/catalog/product-figure";
 import { ButtonLink } from "@/components/shared/button-link";
-import { ImagePlaceholder } from "@/components/shared/image-placeholder";
+import { ImageFrame } from "@/components/shared/image-frame";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { WhatsAppButton } from "@/components/shared/whatsapp-button";
 import { routing } from "@/i18n/routing";
+import type { IndexColour } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-// Sample content. Phase 4 replaces every list below with database queries.
+// Sample content. Phase 3 replaces every list below with database queries.
 const categories = [
-  { key: "school", icon: School },
-  { key: "paper", icon: Book },
-  { key: "writing", icon: PenTool },
-  { key: "office", icon: Briefcase },
-] as const;
+  { key: "school", accent: "school" },
+  { key: "paper", accent: "paper" },
+  { key: "writing", accent: "writing" },
+  { key: "art", accent: "art" },
+  { key: "office", accent: "office" },
+  { key: "learning", accent: "learning" },
+] as const satisfies readonly { key: string; accent: IndexColour }[];
 
-const sampleProducts = [
-  { key: "backpack", category: "school" },
-  { key: "notebook", category: "paper" },
-  { key: "pencilSet", category: "writing" },
-] as const;
+// Frame heights alternate so the row has a rhythm without breaking the grid.
+const featured = [
+  { key: "backpack", accent: "school", tall: true },
+  { key: "notebook", accent: "paper", tall: false },
+  { key: "pencils", accent: "art", tall: true },
+  { key: "calculator", accent: "office", tall: false },
+] as const satisfies readonly {
+  key: string;
+  accent: IndexColour;
+  tall: boolean;
+}[];
 
-const reasons = [
-  { key: "authentic", icon: ShieldCheck },
-  { key: "advice", icon: Handshake },
-  { key: "fast", icon: Zap },
-] as const;
-
-const contactRows = [
-  { key: "address", icon: MapPin },
-  { key: "phone", icon: Phone },
-  { key: "hours", icon: Clock },
-] as const;
+const claims = ["choice", "advice", "ready"] as const;
+const services = ["printing", "lists", "business"] as const;
+const shell = "mx-auto w-full max-w-[75rem] px-5 sm:px-8";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const current = await getLocale();
-  const Arrow = current === "ar" ? ArrowLeft : ArrowRight;
-
   const t = await getTranslations("Home");
   const cat = await getTranslations("Categories");
-  const product = await getTranslations("Product");
   const whatsapp = await getTranslations("WhatsApp");
+  const placeholder = t("photoSlot");
 
-  const whatsappUrl = buildWhatsAppUrl(
+  const listUrl = buildWhatsAppUrl(
     siteConfig.whatsappNumber,
-    whatsapp("greeting"),
+    whatsapp("sendList"),
   );
-  const askAbout = (name: string) =>
-    buildWhatsAppUrl(siteConfig.whatsappNumber, whatsapp("about", { name }));
 
   return (
     <main className="flex flex-col">
-      {/* Hero */}
-      <section className="border-b border-line bg-gradient-to-b from-surface to-background py-14 lg:py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
-          <div className="space-y-6 lg:col-span-7">
-            <p className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3 py-1.5 text-xs font-bold text-brand">
-              <span
-                aria-hidden
-                className="size-2 animate-pulse rounded-full bg-brand"
+      {/* 1. Hero — asymmetric, type-led. No card, no gradient, no stats. */}
+      <section className={`${shell} grid gap-10 pb-16 pt-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-center lg:gap-16 lg:pb-24 lg:pt-20`}>
+        <div>
+          <h1 className="rise max-w-[15ch] text-[2.75rem] font-bold leading-[1.1] sm:text-6xl lg:text-[4.25rem]">
+            {t("title")}
+          </h1>
+          <p className="rise rise-2 mt-6 max-w-[42ch] text-lg leading-relaxed text-graphite">
+            {t("subtitle")}
+          </p>
+          <div className="rise rise-3 mt-8 flex flex-wrap gap-3">
+            <ButtonLink href="/products" size="lg">
+              {t("browseProducts")}
+            </ButtonLink>
+            {listUrl ? (
+              <WhatsAppButton
+                href={listUrl}
+                label={whatsapp("sendListCta")}
+                className="min-h-14 px-7 text-base"
               />
-              {t("badge")}
-            </p>
-            <h1 className="text-3xl font-black leading-tight text-heading sm:text-5xl lg:text-6xl">
-              {t("titleStart")}{" "}
-              <span className="text-brand underline decoration-gold decoration-wavy">
-                {t("titleAccent")}
-              </span>
-            </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-subtle sm:text-lg">
-              {t("subtitle")}
-            </p>
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <ButtonLink href="/products" size="lg">
-                <span>{t("browseProducts")}</span>
-                <Arrow aria-hidden className="size-4" />
-              </ButtonLink>
+            ) : (
               <ButtonLink href="/contact" variant="outline" size="lg">
                 {t("contactUs")}
               </ButtonLink>
-            </div>
-            <dl className="grid grid-cols-3 gap-6 border-t border-line pt-7">
-              {(["products", "brands", "quality"] as const).map((key) => (
-                <div key={key}>
-                  <dt className="sr-only">{t(`stats.${key}.label`)}</dt>
-                  <dd className="text-xl font-black text-heading sm:text-2xl">
-                    {t(`stats.${key}.value`)}
-                  </dd>
-                  <p className="mt-1 text-xs font-medium text-subtle">
-                    {t(`stats.${key}.label`)}
-                  </p>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className="lg:col-span-5">
-            <div className="relative rounded-3xl border border-line bg-surface p-4 shadow-2xl">
-              <div className="h-80 overflow-hidden rounded-2xl sm:h-96">
-                <ImagePlaceholder label={t("heroImage")} className="text-sm" />
-              </div>
-              <p className="absolute bottom-7 end-7 flex items-center gap-3 rounded-2xl border border-line bg-surface/90 px-5 py-3 shadow-lg backdrop-blur-md">
-                <span
-                  aria-hidden
-                  className="grid size-10 place-items-center rounded-xl bg-gold text-primary"
-                >
-                  <ShieldCheck className="size-5" />
-                </span>
-                <span>
-                  <span className="block text-xs font-medium text-subtle">
-                    {t("heroBadgeLabel")}
-                  </span>
-                  <span className="block text-sm font-bold text-heading">
-                    {t("heroBadgeValue")}
-                  </span>
-                </span>
-              </p>
-            </div>
+            )}
           </div>
         </div>
+
+        <ImageFrame
+          alt={t("heroAlt")}
+          placeholder={t("heroSlot")}
+          sizes="(min-width: 1024px) 55vw, 100vw"
+          priority
+          className="rise rise-2 aspect-[4/3] lg:aspect-[5/4]"
+        />
       </section>
 
-      {/* Categories */}
-      <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      {/* 2. The index: colour-coded rows, not cards. */}
+      <section className={`${shell} py-14`}>
         <SectionHeading
-          align="center"
-          eyebrow={t("categoriesEyebrow")}
-          title={t("categoriesTitle")}
-          description={t("categoriesDescription")}
+          title={t("indexTitle")}
+          description={t("indexDescription")}
+          action={{ label: t("allCategories"), href: "/categories" }}
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map(({ key, icon }) => (
-            <CategoryCard
+        <div className="border-t border-line">
+          {categories.map(({ key, accent }) => (
+            <CategoryRow
               key={key}
               name={cat(`${key}.name`)}
               description={cat(`${key}.description`)}
               href="/categories"
-              icon={icon}
-              browseLabel={t("browseCategory")}
+              accent={accent}
+              samples={cat.raw(`${key}.samples`) as string[]}
             />
           ))}
         </div>
       </section>
 
-      {/* Featured products */}
-      <section className="border-y border-line bg-surface py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow={t("featuredEyebrow")}
-            title={t("featuredTitle")}
-            description={t("sampleNote")}
-            action={{ label: t("allProducts"), href: "/products" }}
-          />
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {sampleProducts.map(({ key, category }) => (
-              <ProductCard
-                key={key}
-                name={t(`samples.${key}.name`)}
-                description={t(`samples.${key}.description`)}
-                href="/products"
-                category={cat(`${category}.name`)}
-                whatsappUrl={askAbout(t(`samples.${key}.name`))}
-                labels={{
-                  details: product("details"),
-                  noImage: product("noImage"),
-                  ask: whatsapp("ask"),
-                }}
-              />
-            ))}
-          </div>
+      {/* 3. Featured: a gallery where the lead item is larger. */}
+      <section className={`${shell} py-14`}>
+        <SectionHeading
+          title={t("featuredTitle")}
+          description={t("sampleNote")}
+          action={{ label: t("allProducts"), href: "/products" }}
+        />
+        <div className="grid items-start gap-x-6 gap-y-10 grid-cols-2 lg:grid-cols-4">
+          {featured.map(({ key, accent, tall }, index) => (
+            <ProductFigure
+              key={key}
+              name={t(`samples.${key}.name`)}
+              href="/products"
+              category={cat(`${t(`samples.${key}.category`)}.name`)}
+              accent={accent}
+              price={t(`samples.${key}.price`)}
+              placeholder={placeholder}
+              tall={tall}
+              priority={index === 0}
+            />
+          ))}
         </div>
       </section>
 
-      {/* Brands */}
-      <section className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <h2 className="mb-8 text-center text-sm font-bold uppercase tracking-wider text-subtle">
+      {/* 4. The one dark block: a statement, no icons, no cards. */}
+      <section className="my-10 bg-ink py-20 text-paper">
+        <div className={shell}>
+          <p className="max-w-[20ch] text-3xl font-bold leading-snug sm:text-5xl sm:leading-tight">
+            {t("statement")}
+          </p>
+          <dl className="mt-14 grid gap-10 border-t border-paper/20 pt-10 sm:grid-cols-3">
+            {claims.map((key) => (
+              <div key={key}>
+                <dt className="text-lg font-semibold">
+                  {t(`claims.${key}.title`)}
+                </dt>
+                <dd className="mt-2 text-[15px] leading-relaxed text-paper/70">
+                  {t(`claims.${key}.body`)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* 5. Brands: hairlines, no boxes. */}
+      <section className={`${shell} py-14`}>
+        <h2 className="mb-6 text-sm font-semibold text-graphite">
           {t("brandsTitle")}
         </h2>
-        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        <ul className="grid grid-cols-2 border-t border-line sm:grid-cols-3 lg:grid-cols-6">
           {Array.from({ length: 6 }, (_, index) => (
             <li
               key={index}
-              className="grid min-h-20 place-items-center rounded-2xl border-2 border-dashed border-line bg-surface px-3 text-center text-xs text-subtle"
+              className="flex min-h-20 items-center justify-center border-b border-line px-3 text-center text-xs text-graphite lg:border-s lg:first:border-s-0"
             >
               {t("brandSlot")}
             </li>
@@ -211,114 +174,102 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         </ul>
       </section>
 
-      {/* Why choose us */}
-      <section className="bg-primary py-16 text-white lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-12 max-w-2xl text-center">
-            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">
-              {t("whyEyebrow")}
-            </span>
-            <h2 className="mt-3 text-2xl font-black sm:text-3xl">
-              {t("whyTitle")}
-            </h2>
+      {/* 6. The shop, as a horizontal strip that runs past the edge. */}
+      <section className="py-14">
+        <div className={shell}>
+          <SectionHeading
+            title={t("galleryTitle")}
+            action={{ label: t("galleryAll"), href: "/gallery" }}
+          />
+        </div>
+        {/* Scrollable region: focusable so it can be reached and scrolled by keyboard. */}
+        <ul
+          tabIndex={0}
+          aria-label={t("galleryTitle")}
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-5 pb-3 sm:px-8"
+        >
+          {[
+            "aspect-[4/3] w-72",
+            "aspect-square w-64",
+            "aspect-[3/4] w-56",
+            "aspect-[4/3] w-72",
+            "aspect-square w-64",
+          ].map((shape, index) => (
+            <li key={index} className={`shrink-0 snap-start ${shape}`}>
+              <ImageFrame
+                alt={t("gallerySlot")}
+                placeholder={t("gallerySlot")}
+                sizes="300px"
+                className="size-full"
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* 7. Services and the shop's own details. */}
+      <section id="visit" className={`${shell} scroll-mt-32 py-14`}>
+        <SectionHeading title={t("visitTitle")} />
+        <div className="grid gap-x-16 gap-y-10 lg:grid-cols-2">
+          <div>
+            <h3 className="mb-4 text-sm font-semibold text-graphite">
+              {t("servicesTitle")}
+            </h3>
+            <dl className="border-t border-line">
+              {services.map((key) => (
+                <div key={key} className="border-b border-line py-4">
+                  <dt className="font-semibold">{t(`services.${key}.name`)}</dt>
+                  <dd className="mt-1 text-[15px] text-graphite">
+                    {t(`services.${key}.body`)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {reasons.map(({ key, icon: Icon }) => (
-              <div
-                key={key}
-                className="rounded-3xl border border-white/10 bg-white/5 p-8"
+
+          <div>
+            <h3 className="mb-4 text-sm font-semibold text-graphite">
+              {t("detailsTitle")}
+            </h3>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 border-t border-line pt-4 text-[15px]">
+              <dt className="font-semibold">{t("visit.addressLabel")}</dt>
+              <dd className="text-graphite">{t("visit.address")}</dd>
+              <dt className="font-semibold">{t("visit.hoursLabel")}</dt>
+              <dd className="text-graphite">{t("visit.hours")}</dd>
+              <dt className="font-semibold">{t("visit.phoneLabel")}</dt>
+              <dd className="text-graphite">{t("visit.phone")}</dd>
+            </dl>
+            {siteConfig.mapUrl ? (
+              <a
+                href={siteConfig.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-block font-semibold text-brand underline underline-offset-4"
               >
-                <span
-                  aria-hidden
-                  className="mb-6 grid size-14 place-items-center rounded-2xl bg-gold text-primary"
-                >
-                  <Icon className="size-6" />
-                </span>
-                <h3 className="mb-3 text-xl font-bold">
-                  {t(`why.${key}.title`)}
-                </h3>
-                <p className="text-sm leading-relaxed text-slate-300">
-                  {t(`why.${key}.description`)}
-                </p>
-              </div>
-            ))}
+                {t("visit.openMap")}
+              </a>
+            ) : null}
           </div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section
-        id="visit"
-        className="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
-      >
-        <div className="rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-10">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
-                {t("contactEyebrow")}
-              </span>
-              <h2 className="mb-7 mt-3 text-2xl font-black text-heading sm:text-3xl">
-                {t("contactTitle")}
-              </h2>
-              <dl className="space-y-5">
-                {contactRows.map(({ key, icon: Icon }) => (
-                  <div key={key} className="flex items-start gap-4">
-                    <span
-                      aria-hidden
-                      className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand"
-                    >
-                      <Icon className="size-5" />
-                    </span>
-                    <div>
-                      <dt className="font-bold text-heading">
-                        {t(`contact.${key}.label`)}
-                      </dt>
-                      <dd className="mt-0.5 text-sm text-subtle">
-                        {t(`contact.${key}.value`)}
-                      </dd>
-                    </div>
-                  </div>
-                ))}
-                {whatsappUrl ? (
-                  <div className="pt-1">
-                    <WhatsAppButton
-                      href={whatsappUrl}
-                      label={whatsapp("quickAsk")}
-                      className="min-h-13 px-6 text-sm shadow-lg shadow-whatsapp/20"
-                    />
-                  </div>
-                ) : null}
-              </dl>
-            </div>
-
-            <div className="rounded-2xl border border-line bg-background p-5">
-              <h3 className="mb-4 text-lg font-bold text-heading">
-                {t("mapTitle")}
-              </h3>
-              <div className="h-72 overflow-hidden rounded-xl">
-                {siteConfig.mapUrl ? (
-                  <a
-                    href={siteConfig.mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="grid size-full place-items-center gap-2 rounded-xl border border-line bg-surface text-center"
-                  >
-                    <span>
-                      <MapPin
-                        aria-hidden
-                        className="mx-auto mb-2 size-8 text-brand"
-                      />
-                      <span className="block font-bold text-heading">
-                        {t("mapOpen")}
-                      </span>
-                    </span>
-                  </a>
-                ) : (
-                  <ImagePlaceholder label={t("mapPlaceholder")} />
-                )}
-              </div>
-            </div>
-          </div>
+      {/* 8. A quiet close. */}
+      <section className={`${shell} py-14`}>
+        <div className="flex flex-wrap items-center justify-between gap-6 border-t-2 border-ink pt-8">
+          <p className="max-w-[30ch] text-2xl font-bold leading-snug sm:text-3xl">
+            {t("closingTitle")}
+          </p>
+          {listUrl ? (
+            <WhatsAppButton
+              href={listUrl}
+              label={whatsapp("sendListCta")}
+              className="min-h-14 px-7 text-base"
+            />
+          ) : (
+            <ButtonLink href="/contact" size="lg">
+              {t("contactUs")}
+            </ButtonLink>
+          )}
         </div>
       </section>
     </main>

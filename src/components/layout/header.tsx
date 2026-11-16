@@ -1,10 +1,8 @@
-import { BookOpen, Feather } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { SearchForm } from "@/components/layout/search-form";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { ButtonLink } from "@/components/shared/button-link";
 import { WhatsAppButton } from "@/components/shared/whatsapp-button";
 import { Link } from "@/i18n/navigation";
 import { mainNav, siteConfig } from "@/lib/site-config";
@@ -22,58 +20,27 @@ export async function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-surface shadow-sm">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex min-w-0 items-center gap-3">
-          <span
-            aria-hidden
-            className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-brand text-gold shadow-md"
-          >
-            <Feather className="size-6" />
+    <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-sm">
+      <div className="mx-auto flex min-h-16 max-w-[75rem] flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3 sm:px-8">
+        <Link href="/" className="min-w-0 shrink-0">
+          <span className="block truncate text-lg font-bold leading-tight">
+            {common("storeNameShort")}
           </span>
-          <span className="min-w-0">
-            <span className="block truncate text-lg font-extrabold leading-tight text-heading sm:text-xl">
-              {common("storeNameShort")}
-            </span>
-            <span className="hidden truncate text-xs font-medium tracking-wide text-subtle sm:block">
-              {common("storeTagline")}
-            </span>
+          <span className="block truncate text-xs text-graphite">
+            {common("storeTagline")}
           </span>
         </Link>
 
-        <nav
-          aria-label={t("label")}
-          className="hidden items-center gap-7 text-sm font-semibold lg:flex"
-        >
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="transition hover:text-brand"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <SearchForm className="order-last w-full md:order-none md:w-auto md:max-w-sm md:flex-1" />
 
-        <div className="flex shrink-0 items-center gap-2">
-          <SearchForm className="hidden w-56 xl:flex" />
-          <ButtonLink
-            href="/products"
-            variant="soft"
-            size="sm"
-            className="hidden sm:inline-flex lg:hidden xl:inline-flex"
-          >
-            <BookOpen aria-hidden className="size-4" />
-            {t("catalog")}
-          </ButtonLink>
+        <div className="ms-auto flex shrink-0 items-center gap-2 md:ms-0">
           <LocaleSwitcher label={common("switchLocale")} />
           <ThemeToggle label={common("toggleTheme")} />
           {whatsappUrl ? (
             <WhatsAppButton
               href={whatsappUrl}
               label={whatsapp("quickAsk")}
-              className="hidden min-h-11 px-4 text-sm shadow-lg shadow-whatsapp/20 md:inline-flex"
+              className="hidden min-h-11 px-4 text-sm lg:inline-flex"
             />
           ) : null}
           <MobileMenu
@@ -86,6 +53,24 @@ export async function Header() {
           />
         </div>
       </div>
+
+      <nav
+        aria-label={t("label")}
+        className="mx-auto hidden max-w-[75rem] px-8 lg:block"
+      >
+        <ul className="flex flex-wrap">
+          {items.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="flex min-h-11 items-center border-b-2 border-transparent pe-7 text-[15px] font-medium transition-colors hover:border-brand"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }
