@@ -1,0 +1,20 @@
+{
+  "Metadata": {
+    "title": "My Stationery | School & Office Supplies",
+    "description": "Everything you need for school, office and art in one place."
+  },
+  "Home": {
+    "badge": "Coming soon",
+    "title": "All your school and office supplies in one place",
+    "subtitle": "The site is under construction. This page confirms the base setup works: Arabic, right-to-left layout and dark mode."
+  },
+  "Common": {
+    "switchLocale": "العربية",
+    "toggleTheme": "Toggle dark mode"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "This page seems to have got lost among the notebooks.",
+    "backHome": "Back to home"
+  }
+}
