@@ -22,7 +22,7 @@
   --blue: #2563eb;
   --gold: #f5b301;
   --ink: #1b2a44;
-  --muted-text: #71809a;
+  --muted-text: #5b6a84;
   --line: #e4eaf3;
 
   --background: var(--page);
@@ -83,7 +83,7 @@
   --color-muted-text: var(--muted-text);
   --color-line: var(--line);
   --color-whatsapp: #25d366;
-  --color-whatsapp-deep: #128c45;
+  --color-whatsapp-deep: #0f7a3c;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

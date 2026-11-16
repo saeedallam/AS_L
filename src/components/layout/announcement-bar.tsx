@@ -7,7 +7,7 @@ export async function AnnouncementBar() {
   if (!text.trim()) return null;
 
   return (
-    <p className="bg-primary px-4 py-2 text-center text-xs font-medium text-white">
+    <p className="bg-navy px-4 py-2 text-center text-xs font-medium text-white dark:text-navy-deep">
       <span className="me-2 rounded bg-gold px-2 py-0.5 text-[10px] font-bold text-primary">
         {t("badge")}
       </span>

@@ -15,7 +15,7 @@ export async function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t("label")}
-      className="fixed bottom-5 end-5 z-50 grid size-14 place-items-center rounded-full bg-whatsapp text-white shadow-raised transition-colors hover:bg-whatsapp-deep sm:hidden"
+      className="fixed bottom-5 end-5 z-50 grid size-14 place-items-center rounded-full bg-whatsapp-deep text-white shadow-raised transition-[filter] hover:brightness-115 sm:hidden"
     >
       <WhatsAppIcon className="size-7" />
     </a>

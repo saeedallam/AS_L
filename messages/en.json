@@ -131,5 +131,56 @@
     "title": "Page not found",
     "description": "This page seems to have got lost among the notebooks.",
     "backHome": "Back to home"
+  },
+  "Catalog": {
+    "title": "Browse everything",
+    "subtitle": "Filter by section or search for what you need, then message us on WhatsApp for price and availability.",
+    "breadcrumbsLabel": "Breadcrumb",
+    "filters": "Filters",
+    "categories": "Categories",
+    "brands": "Brand",
+    "ages": "School stage",
+    "apply": "Apply Filters",
+    "clear": "Clear Filters",
+    "resultsLabel": "Search results",
+    "count": "{count, plural, =0 {No results} one {1 result} other {# results}}",
+    "emptyTitle": "No matching items",
+    "emptyBody": "Try a shorter search term or widen the filters.",
+    "paginationLabel": "Result pages",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page"
+  },
+  "CatalogData": {
+    "categories": {
+      "bags": "Bags & Pencil Cases",
+      "notebooks": "Notebooks",
+      "pens": "Pens & Pencils",
+      "geometry": "Geometry Sets",
+      "art": "Art Supplies",
+      "office": "Office Supplies"
+    },
+    "brands": {
+      "one": "Brand One",
+      "two": "Brand Two",
+      "three": "Brand Three",
+      "four": "Brand Four"
+    },
+    "ages": {
+      "primary": "Primary",
+      "preparatory": "Preparatory",
+      "secondary": "Secondary"
+    }
+  },
+  "Product": {
+    "intro": "Available in the shop in several sizes and colours. Message us on WhatsApp and we will confirm what is in stock, tell you the price, and set it aside for you.",
+    "askPrice": "Ask About Price",
+    "priceNote": "Prices vary by size and availability, so we confirm them on WhatsApp before you visit.",
+    "related": "Similar Items",
+    "points": {
+      "availability": "We confirm availability before you come to the shop.",
+      "advice": "We help you pick the right option for the school stage.",
+      "bulk": "Special pricing for schools, companies, and bulk orders."
+    }
   }
 }

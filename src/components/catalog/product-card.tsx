@@ -14,6 +14,8 @@ type Props = {
   slotLabel: string;
   askUrl?: string | null;
   askLabel: string;
+  /** The catalogue grid uses the quieter outlined button. */
+  buttonVariant?: "whatsapp" | "outline";
 };
 
 /** White card: photo, name, then a full-width enquiry button. */
@@ -26,18 +28,19 @@ export function ProductCard({
   slotLabel,
   askUrl,
   askLabel,
+  buttonVariant = "whatsapp",
 }: Props) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-line bg-surface shadow-card transition-shadow hover:shadow-raised">
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface shadow-card transition-shadow hover:shadow-raised">
       <Photo
         media={media}
         alt={name}
         slotLabel={slotLabel}
-        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+        sizes="(min-width: 1280px) 20vw, (min-width: 640px) 33vw, 50vw"
         className="aspect-square"
       />
       <div className="flex flex-1 flex-col gap-1 p-4">
-        <h3 className="text-[15px] font-bold leading-snug text-navy">
+        <h3 className="line-clamp-2 text-[15px] font-bold leading-snug text-navy">
           <Link href={href} className="hover:text-blue">
             {name}
           </Link>
@@ -47,19 +50,26 @@ export function ProductCard({
           <p className="text-sm font-bold text-navy">{price}</p>
         ) : null}
 
-        <div className="mt-3">
+        <div className="mt-auto pt-3">
           {askUrl ? (
             <ActionAnchor
               href={askUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full"
+              variant={buttonVariant}
+              size={buttonVariant === "outline" ? "sm" : "md"}
+              className="w-full px-3 text-[12.5px] whitespace-nowrap"
             >
               <WhatsAppIcon className="size-4" />
               {askLabel}
             </ActionAnchor>
           ) : (
-            <ActionLink href={href} className="w-full">
+            <ActionLink
+              href={href}
+              variant={buttonVariant}
+              size={buttonVariant === "outline" ? "sm" : "md"}
+              className="w-full px-3 text-[12.5px] whitespace-nowrap"
+            >
               {askLabel}
             </ActionLink>
           )}

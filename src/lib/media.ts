@@ -13,25 +13,8 @@ import path from "node:path";
  * Phase 3 adds `product_images.storage_path` from Supabase Storage on top
  * of this, so the shop can upload from the dashboard instead.
  */
-export type MediaKey =
-  | "hero"
-  | "cat-school"
-  | "cat-art"
-  | "cat-notebooks"
-  | "cat-office"
-  | "p-notebook"
-  | "p-pen"
-  | "p-case"
-  | "p-backpack"
-  | "brand-1"
-  | "brand-2"
-  | "brand-3"
-  | "brand-4"
-  | "gallery-1"
-  | "gallery-2"
-  | "gallery-3"
-  | "gallery-4"
-  | "gallery-5";
+/** A slot name. See `public/media/README.md` for the list the site uses. */
+export type MediaKey = string;
 
 const EXTENSIONS = [".avif", ".webp", ".jpg", ".jpeg", ".png"];
 const MEDIA_DIR = path.join(process.cwd(), "public", "media");

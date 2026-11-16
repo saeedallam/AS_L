@@ -21,7 +21,7 @@ export default async function PublicLayout({
     <>
       <a
         href="#main"
-        className="absolute start-3 top-3 z-50 -translate-y-24 rounded-xl bg-primary px-4 py-2 font-bold text-white focus:translate-y-0"
+        className="absolute start-3 top-3 z-50 -translate-y-24 rounded-xl bg-navy px-4 py-2 font-bold text-white focus:translate-y-0 dark:text-navy-deep"
       >
         {t("skipToContent")}
       </a>
