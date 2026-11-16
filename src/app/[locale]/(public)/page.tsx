@@ -1,323 +1,251 @@
-import {
-  ArrowLeft,
-  ArrowRight,
-  Book,
-  Briefcase,
-  Clock,
-  Handshake,
-  MapPin,
-  PenTool,
-  Phone,
-  School,
-  ShieldCheck,
-  Zap,
-} from "lucide-react";
+import { BadgeCheck, Gem, Sparkles, Truck } from "lucide-react";
 import { hasLocale } from "next-intl";
-import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { CategoryCard } from "@/components/catalog/category-card";
+import { CategoryTile } from "@/components/catalog/category-tile";
 import { ProductCard } from "@/components/catalog/product-card";
-import { ButtonLink } from "@/components/shared/button-link";
-import { ImagePlaceholder } from "@/components/shared/image-placeholder";
-import { SectionHeading } from "@/components/shared/section-heading";
-import { WhatsAppButton } from "@/components/shared/whatsapp-button";
+import { Photo } from "@/components/shared/photo";
+import { WhatsAppIcon } from "@/components/shared/whatsapp-icon";
+import { ActionAnchor, ActionLink } from "@/components/ui-kit/button";
+import { FeatureTile } from "@/components/ui-kit/feature-tile";
+import { SectionTitle } from "@/components/ui-kit/section-title";
+import type { MediaKey } from "@/lib/media";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-// Sample content. Phase 4 replaces every list below with database queries.
+// Sample content. Phase 3 replaces every list below with database queries.
 const categories = [
-  { key: "school", icon: School },
-  { key: "paper", icon: Book },
-  { key: "writing", icon: PenTool },
-  { key: "office", icon: Briefcase },
-] as const;
+  { key: "school", media: "cat-school" },
+  { key: "art", media: "cat-art" },
+  { key: "notebooks", media: "cat-notebooks" },
+  { key: "office", media: "cat-office" },
+] as const satisfies readonly { key: string; media: MediaKey }[];
 
-const sampleProducts = [
-  { key: "backpack", category: "school" },
-  { key: "notebook", category: "paper" },
-  { key: "pencilSet", category: "writing" },
-] as const;
+const products = [
+  { key: "notebook", media: "p-notebook" },
+  { key: "pen", media: "p-pen" },
+  { key: "case", media: "p-case" },
+  { key: "backpack", media: "p-backpack" },
+] as const satisfies readonly { key: string; media: MediaKey }[];
+
+const brands = [
+  { key: "one", media: "brand-1" },
+  { key: "two", media: "brand-2" },
+  { key: "three", media: "brand-3" },
+  { key: "four", media: "brand-4" },
+] as const satisfies readonly { key: string; media: MediaKey }[];
 
 const reasons = [
-  { key: "authentic", icon: ShieldCheck },
-  { key: "advice", icon: Handshake },
-  { key: "fast", icon: Zap },
+  { key: "curation", icon: Sparkles, tint: "blue" },
+  { key: "quality", icon: BadgeCheck, tint: "navy" },
+  { key: "exclusive", icon: Gem, tint: "gold" },
+  { key: "ready", icon: Truck, tint: "blue" },
 ] as const;
 
-const contactRows = [
-  { key: "address", icon: MapPin },
-  { key: "phone", icon: Phone },
-  { key: "hours", icon: Clock },
-] as const;
+const gallery = [
+  "gallery-1",
+  "gallery-2",
+  "gallery-3",
+  "gallery-4",
+  "gallery-5",
+] as const satisfies readonly MediaKey[];
+
+const shell = "mx-auto w-full max-w-[76rem] px-4 sm:px-6 lg:px-8";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const current = await getLocale();
-  const Arrow = current === "ar" ? ArrowLeft : ArrowRight;
-
   const t = await getTranslations("Home");
-  const cat = await getTranslations("Categories");
-  const product = await getTranslations("Product");
   const whatsapp = await getTranslations("WhatsApp");
+  const slot = t("photoSlot");
 
-  const whatsappUrl = buildWhatsAppUrl(
+  const askAbout = (name: string) =>
+    buildWhatsAppUrl(siteConfig.whatsappNumber, whatsapp("about", { name }));
+  const contactUrl = buildWhatsAppUrl(
     siteConfig.whatsappNumber,
     whatsapp("greeting"),
   );
-  const askAbout = (name: string) =>
-    buildWhatsAppUrl(siteConfig.whatsappNumber, whatsapp("about", { name }));
 
   return (
-    <main className="flex flex-col">
-      {/* Hero */}
-      <section className="border-b border-line bg-gradient-to-b from-surface to-background py-14 lg:py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
-          <div className="space-y-6 lg:col-span-7">
-            <p className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3 py-1.5 text-xs font-bold text-brand">
-              <span
-                aria-hidden
-                className="size-2 animate-pulse rounded-full bg-brand"
-              />
-              {t("badge")}
-            </p>
-            <h1 className="text-3xl font-black leading-tight text-heading sm:text-5xl lg:text-6xl">
-              {t("titleStart")}{" "}
-              <span className="text-brand underline decoration-gold decoration-wavy">
-                {t("titleAccent")}
-              </span>
+    <main className="flex flex-col pb-4">
+      {/* Hero: photo on one side, headline and action on the other. */}
+      <section className={`${shell} pb-14 pt-10 lg:pb-20 lg:pt-14`}>
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          <div className="order-2 text-center lg:order-none lg:text-start">
+            <h1 className="text-[1.9rem] font-extrabold leading-[1.35] text-navy sm:text-4xl lg:text-[2.6rem] lg:leading-[1.3]">
+              {t("title")}
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-subtle sm:text-lg">
+            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted-text lg:mx-0">
               {t("subtitle")}
             </p>
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <ButtonLink href="/products" size="lg">
-                <span>{t("browseProducts")}</span>
-                <Arrow aria-hidden className="size-4" />
-              </ButtonLink>
-              <ButtonLink href="/contact" variant="outline" size="lg">
-                {t("contactUs")}
-              </ButtonLink>
-            </div>
-            <dl className="grid grid-cols-3 gap-6 border-t border-line pt-7">
-              {(["products", "brands", "quality"] as const).map((key) => (
-                <div key={key}>
-                  <dt className="sr-only">{t(`stats.${key}.label`)}</dt>
-                  <dd className="text-xl font-black text-heading sm:text-2xl">
-                    {t(`stats.${key}.value`)}
-                  </dd>
-                  <p className="mt-1 text-xs font-medium text-subtle">
-                    {t(`stats.${key}.label`)}
-                  </p>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className="lg:col-span-5">
-            <div className="relative rounded-3xl border border-line bg-surface p-4 shadow-2xl">
-              <div className="h-80 overflow-hidden rounded-2xl sm:h-96">
-                <ImagePlaceholder label={t("heroImage")} className="text-sm" />
-              </div>
-              <p className="absolute bottom-7 end-7 flex items-center gap-3 rounded-2xl border border-line bg-surface/90 px-5 py-3 shadow-lg backdrop-blur-md">
-                <span
-                  aria-hidden
-                  className="grid size-10 place-items-center rounded-xl bg-gold text-primary"
+            <div className="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
+              <ActionLink href="/products" size="lg">
+                {t("browseProducts")}
+              </ActionLink>
+              {contactUrl ? (
+                <ActionAnchor
+                  href={contactUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outline"
+                  size="lg"
                 >
-                  <ShieldCheck className="size-5" />
-                </span>
-                <span>
-                  <span className="block text-xs font-medium text-subtle">
-                    {t("heroBadgeLabel")}
-                  </span>
-                  <span className="block text-sm font-bold text-heading">
-                    {t("heroBadgeValue")}
-                  </span>
-                </span>
-              </p>
+                  <WhatsAppIcon className="size-4" />
+                  {whatsapp("headerCta")}
+                </ActionAnchor>
+              ) : null}
             </div>
           </div>
+          <Photo
+            media="hero"
+            alt={t("heroAlt")}
+            slotLabel={t("heroSlot")}
+            priority
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="order-1 aspect-[4/3] rounded-xl shadow-card lg:order-none"
+          />
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <SectionHeading
-          align="center"
-          eyebrow={t("categoriesEyebrow")}
+      {/* Featured categories: photo tiles with the name banded on. */}
+      <section className={`${shell} py-14`}>
+        <SectionTitle
           title={t("categoriesTitle")}
-          description={t("categoriesDescription")}
+          subtitle={t("categoriesSubtitle")}
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map(({ key, icon }) => (
-            <CategoryCard
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+          {categories.map(({ key, media }) => (
+            <CategoryTile
               key={key}
-              name={cat(`${key}.name`)}
-              description={cat(`${key}.description`)}
+              name={t(`categories.${key}`)}
               href="/categories"
-              icon={icon}
-              browseLabel={t("browseCategory")}
+              media={media}
+              slotLabel={slot}
             />
           ))}
         </div>
       </section>
 
-      {/* Featured products */}
-      <section className="border-y border-line bg-surface py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow={t("featuredEyebrow")}
-            title={t("featuredTitle")}
-            description={t("sampleNote")}
-            action={{ label: t("allProducts"), href: "/products" }}
-          />
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {sampleProducts.map(({ key, category }) => (
-              <ProductCard
-                key={key}
-                name={t(`samples.${key}.name`)}
-                description={t(`samples.${key}.description`)}
-                href="/products"
-                category={cat(`${category}.name`)}
-                whatsappUrl={askAbout(t(`samples.${key}.name`))}
-                labels={{
-                  details: product("details"),
-                  noImage: product("noImage"),
-                  ask: whatsapp("ask"),
-                }}
-              />
-            ))}
-          </div>
+      {/* Featured products. */}
+      <section className={`${shell} py-14`}>
+        <SectionTitle
+          title={t("productsTitle")}
+          subtitle={t("productsSubtitle")}
+        />
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+          {products.map(({ key, media }) => (
+            <ProductCard
+              key={key}
+              name={t(`products.${key}.name`)}
+              meta={t(`products.${key}.meta`)}
+              price={t(`products.${key}.price`)}
+              href="/products"
+              media={media}
+              slotLabel={slot}
+              askUrl={askAbout(t(`products.${key}.name`))}
+              askLabel={whatsapp("ask")}
+            />
+          ))}
+        </div>
+        <div className="mt-8 text-center">
+          <ActionLink href="/products" variant="outline" size="lg">
+            {t("allProducts")}
+          </ActionLink>
         </div>
       </section>
 
-      {/* Brands */}
-      <section className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <h2 className="mb-8 text-center text-sm font-bold uppercase tracking-wider text-subtle">
-          {t("brandsTitle")}
-        </h2>
-        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {Array.from({ length: 6 }, (_, index) => (
-            <li
-              key={index}
-              className="grid min-h-20 place-items-center rounded-2xl border-2 border-dashed border-line bg-surface px-3 text-center text-xs text-subtle"
+      {/* Popular brands. */}
+      <section className={`${shell} py-14`}>
+        <SectionTitle title={t("brandsTitle")} subtitle={t("brandsSubtitle")} />
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+          {brands.map(({ key, media }) => (
+            <article
+              key={key}
+              className="group overflow-hidden rounded-xl border border-line bg-surface shadow-card transition-shadow hover:shadow-raised"
             >
-              {t("brandSlot")}
+              <Photo
+                media={media}
+                alt={t(`brands.${key}`)}
+                slotLabel={t("brandSlot")}
+                sizes="(min-width: 1024px) 25vw, 50vw"
+                className="aspect-[5/4]"
+              />
+              <div className="p-4 text-center">
+                <p className="text-sm font-extrabold uppercase tracking-wide text-navy">
+                  {t(`brands.${key}`)}
+                </p>
+                <ActionLink
+                  href="/brands"
+                  className="mt-3 w-full"
+                  variant="outline"
+                >
+                  {t("brandBrowse")}
+                </ActionLink>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Why choose us. */}
+      <section className={`${shell} py-14`}>
+        <SectionTitle title={t("whyTitle")} subtitle={t("whySubtitle")} />
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+          {reasons.map(({ key, icon, tint }) => (
+            <FeatureTile
+              key={key}
+              label={t(`why.${key}`)}
+              icon={icon}
+              tint={tint}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Gallery. */}
+      <section className={`${shell} py-14`}>
+        <SectionTitle title={t("galleryTitle")} subtitle={t("gallerySubtitle")} />
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          {gallery.map((key) => (
+            <li key={key}>
+              <Photo
+                media={key}
+                alt={t("gallerySlot")}
+                slotLabel={t("gallerySlot")}
+                sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
+                className="aspect-square rounded-xl shadow-card"
+              />
             </li>
           ))}
         </ul>
       </section>
 
-      {/* Why choose us */}
-      <section className="bg-primary py-16 text-white lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-12 max-w-2xl text-center">
-            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">
-              {t("whyEyebrow")}
-            </span>
-            <h2 className="mt-3 text-2xl font-black sm:text-3xl">
-              {t("whyTitle")}
+      {/* WhatsApp panel. */}
+      <section className={`${shell} py-14`}>
+        <div className="flex flex-col items-center gap-8 rounded-xl border border-line bg-surface p-8 text-center shadow-card sm:p-12 lg:flex-row-reverse lg:justify-between lg:text-start">
+          <WhatsAppIcon className="size-20 shrink-0 text-whatsapp" />
+          <div className="lg:max-w-2xl">
+            <h2 className="text-2xl font-extrabold text-navy">
+              {t("whatsappTitle")}
             </h2>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {reasons.map(({ key, icon: Icon }) => (
-              <div
-                key={key}
-                className="rounded-3xl border border-white/10 bg-white/5 p-8"
+            <p className="mt-3 text-[15px] leading-relaxed text-muted-text">
+              {t("whatsappBody")}
+            </p>
+            {contactUrl ? (
+              <ActionAnchor
+                href={contactUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                size="lg"
+                className="mt-6"
               >
-                <span
-                  aria-hidden
-                  className="mb-6 grid size-14 place-items-center rounded-2xl bg-gold text-primary"
-                >
-                  <Icon className="size-6" />
-                </span>
-                <h3 className="mb-3 text-xl font-bold">
-                  {t(`why.${key}.title`)}
-                </h3>
-                <p className="text-sm leading-relaxed text-slate-300">
-                  {t(`why.${key}.description`)}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section
-        id="visit"
-        className="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
-      >
-        <div className="rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-10">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
-                {t("contactEyebrow")}
-              </span>
-              <h2 className="mb-7 mt-3 text-2xl font-black text-heading sm:text-3xl">
-                {t("contactTitle")}
-              </h2>
-              <dl className="space-y-5">
-                {contactRows.map(({ key, icon: Icon }) => (
-                  <div key={key} className="flex items-start gap-4">
-                    <span
-                      aria-hidden
-                      className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand"
-                    >
-                      <Icon className="size-5" />
-                    </span>
-                    <div>
-                      <dt className="font-bold text-heading">
-                        {t(`contact.${key}.label`)}
-                      </dt>
-                      <dd className="mt-0.5 text-sm text-subtle">
-                        {t(`contact.${key}.value`)}
-                      </dd>
-                    </div>
-                  </div>
-                ))}
-                {whatsappUrl ? (
-                  <div className="pt-1">
-                    <WhatsAppButton
-                      href={whatsappUrl}
-                      label={whatsapp("quickAsk")}
-                      className="min-h-13 px-6 text-sm shadow-lg shadow-whatsapp/20"
-                    />
-                  </div>
-                ) : null}
-              </dl>
-            </div>
-
-            <div className="rounded-2xl border border-line bg-background p-5">
-              <h3 className="mb-4 text-lg font-bold text-heading">
-                {t("mapTitle")}
-              </h3>
-              <div className="h-72 overflow-hidden rounded-xl">
-                {siteConfig.mapUrl ? (
-                  <a
-                    href={siteConfig.mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="grid size-full place-items-center gap-2 rounded-xl border border-line bg-surface text-center"
-                  >
-                    <span>
-                      <MapPin
-                        aria-hidden
-                        className="mx-auto mb-2 size-8 text-brand"
-                      />
-                      <span className="block font-bold text-heading">
-                        {t("mapOpen")}
-                      </span>
-                    </span>
-                  </a>
-                ) : (
-                  <ImagePlaceholder label={t("mapPlaceholder")} />
-                )}
-              </div>
-            </div>
+                <WhatsAppIcon className="size-4" />
+                {whatsapp("headerCta")}
+              </ActionAnchor>
+            ) : null}
           </div>
         </div>
       </section>

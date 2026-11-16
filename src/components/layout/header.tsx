@@ -1,11 +1,10 @@
-import { BookOpen, Feather } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { MobileMenu } from "@/components/layout/mobile-menu";
-import { SearchForm } from "@/components/layout/search-form";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { ButtonLink } from "@/components/shared/button-link";
-import { WhatsAppButton } from "@/components/shared/whatsapp-button";
+import { WhatsAppIcon } from "@/components/shared/whatsapp-icon";
+import { BrandMark } from "@/components/ui-kit/brand-mark";
+import { ActionAnchor } from "@/components/ui-kit/button";
 import { Link } from "@/i18n/navigation";
 import { mainNav, siteConfig } from "@/lib/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
@@ -22,20 +21,15 @@ export async function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-surface shadow-sm">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 border-b border-line bg-surface">
+      <div className="mx-auto flex h-20 max-w-[76rem] items-center gap-6 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex min-w-0 items-center gap-3">
-          <span
-            aria-hidden
-            className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-brand text-gold shadow-md"
-          >
-            <Feather className="size-6" />
-          </span>
+          <BrandMark className="size-11" />
           <span className="min-w-0">
-            <span className="block truncate text-lg font-extrabold leading-tight text-heading sm:text-xl">
+            <span className="block truncate text-base font-extrabold leading-tight text-navy sm:text-lg">
               {common("storeNameShort")}
             </span>
-            <span className="hidden truncate text-xs font-medium tracking-wide text-subtle sm:block">
+            <span className="hidden truncate text-xs text-muted-text sm:block">
               {common("storeTagline")}
             </span>
           </span>
@@ -43,38 +37,32 @@ export async function Header() {
 
         <nav
           aria-label={t("label")}
-          className="hidden items-center gap-7 text-sm font-semibold lg:flex"
+          className="mx-auto hidden items-center gap-8 text-sm font-bold text-ink lg:flex"
         >
           {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="transition hover:text-brand"
+              className="transition-colors hover:text-blue"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
-          <SearchForm className="hidden w-56 xl:flex" />
-          <ButtonLink
-            href="/products"
-            variant="soft"
-            size="sm"
-            className="hidden sm:inline-flex lg:hidden xl:inline-flex"
-          >
-            <BookOpen aria-hidden className="size-4" />
-            {t("catalog")}
-          </ButtonLink>
+        <div className="ms-auto flex shrink-0 items-center gap-2 lg:ms-0">
           <LocaleSwitcher label={common("switchLocale")} />
           <ThemeToggle label={common("toggleTheme")} />
           {whatsappUrl ? (
-            <WhatsAppButton
+            <ActionAnchor
               href={whatsappUrl}
-              label={whatsapp("quickAsk")}
-              className="hidden min-h-11 px-4 text-sm shadow-lg shadow-whatsapp/20 md:inline-flex"
-            />
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex"
+            >
+              <WhatsAppIcon className="size-4" />
+              {whatsapp("headerCta")}
+            </ActionAnchor>
           ) : null}
           <MobileMenu
             items={items}

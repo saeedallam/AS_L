@@ -4,91 +4,89 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------
-   Store palette. `brand`, `gold` and `subtle` are ours; the names
-   below them (card, muted, ring, ...) are the ones shadcn/ui
-   components expect, mapped onto the same palette so anything
-   added with `npx shadcn add` matches the site straight away.
+   Palette taken from the approved reference screens: deep navy on a
+   light blue-grey page, white cards, a gold mark in the logo, and one
+   bright blue reserved for a single emphasised action.
+   The shadcn/ui names map onto the same values.
    --------------------------------------------------------------- */
 
 :root {
   color-scheme: light;
-  --radius: 1rem;
+  --radius: 0.875rem;
 
-  --background: #f8fafc;
-  --foreground: #1e293b;
-  --heading: #172554;
+  --page: #eef2f8;
   --surface: #ffffff;
-  --subtle: #64748b;
-  --line: #e2e8f0;
-  --brand: #2563eb;
-  --brand-soft: #eff6ff;
+  --navy: #1c3a68;
+  --navy-deep: #162e52;
+  --navy-soft: #e8eefb;
+  --blue: #2563eb;
+  --gold: #f5b301;
+  --ink: #1b2a44;
+  --muted-text: #71809a;
+  --line: #e4eaf3;
 
-  --card: #ffffff;
-  --card-foreground: #1e293b;
-  --popover: #ffffff;
-  --popover-foreground: #1e293b;
-  --primary: #172554;
+  --background: var(--page);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--navy);
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #172554;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #eff6ff;
-  --accent-foreground: #172554;
-  --destructive: #dc2626;
+  --secondary: #eff3f9;
+  --secondary-foreground: var(--navy);
+  --muted: #eff3f9;
+  --muted-foreground: var(--muted-text);
+  --accent: var(--navy-soft);
+  --accent-foreground: var(--navy);
+  --destructive: #d33a32;
   --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #2563eb;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--blue);
 }
 
 .dark {
   color-scheme: dark;
-  --background: #0b1220;
-  --foreground: #e2e8f0;
-  --heading: #f1f5f9;
-  --surface: #172554;
-  --subtle: #94a3b8;
-  --line: #334155;
-  --brand: #60a5fa;
-  --brand-soft: #1e3a8a;
 
-  --card: #172554;
-  --card-foreground: #e2e8f0;
-  --popover: #172554;
-  --popover-foreground: #e2e8f0;
-  --primary: #172554;
-  --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f1f5f9;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e3a8a;
-  --accent-foreground: #f1f5f9;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #334155;
-  --input: #334155;
-  --ring: #60a5fa;
+  --page: #0f1725;
+  --surface: #172234;
+  --navy: #5b8ad6;
+  --navy-deep: #0b111c;
+  --navy-soft: #1d3050;
+  --blue: #5b8ad6;
+  --gold: #f5b301;
+  --ink: #e8edf6;
+  --muted-text: #9aa8c0;
+  --line: #27334a;
+
+  --secondary: #1d2838;
+  --secondary-foreground: var(--ink);
+  --muted: #1d2838;
+  --muted-foreground: var(--muted-text);
+  --accent: #1d3050;
+  --accent-foreground: #cddcf5;
+  --primary: #e8edf6;
+  --primary-foreground: #0f1725;
+  --destructive: #e4685f;
 }
 
 @theme inline {
-  /* Ours */
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-soft: var(--navy-soft);
+  --color-blue: var(--blue);
+  --color-gold: var(--gold);
+  --color-ink: var(--ink);
+  --color-muted-text: var(--muted-text);
+  --color-line: var(--line);
+  --color-whatsapp: #25d366;
+  --color-whatsapp-deep: #128c45;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-heading: var(--heading);
-  --color-surface: var(--surface);
-  --color-subtle: var(--subtle);
-  --color-line: var(--line);
-  --color-brand: var(--brand);
-  --color-brand-soft: var(--brand-soft);
-
-  /* Fixed brand colours: identical in both themes. */
-  --color-gold: #fbbf24;
-  --color-whatsapp: #059669;
-  --color-whatsapp-hover: #047857;
-
-  /* shadcn/ui */
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -107,21 +105,25 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: 1.25rem;
 
   --font-sans: var(--font-cairo), system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(27 42 68 / 0.04), 0 8px 24px rgb(27 42 68 / 0.06);
+  --shadow-raised: 0 10px 30px rgb(27 42 68 / 0.12);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  line-height: 1.8;
-  /* No 300ms double-tap delay; a deliberate, quiet tap highlight. */
+  background-color: var(--page);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.75;
+  font-variant-numeric: tabular-nums;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: color-mix(in srgb, var(--brand) 18%, transparent);
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--navy) 16%, transparent);
 }
 
 h1,
@@ -130,9 +132,23 @@ h3 {
   text-wrap: balance;
 }
 
+p {
+  text-wrap: pretty;
+}
+
 :focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: 2px;
+  outline-offset: 3px;
+}
+
+/* Label band over a category photo. */
+.photo-veil {
+  background-image: linear-gradient(
+    to top,
+    rgb(14 28 51 / 0.82) 0%,
+    rgb(14 28 51 / 0.38) 55%,
+    rgb(14 28 51 / 0) 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {

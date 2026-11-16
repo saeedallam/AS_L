@@ -1,20 +1,20 @@
 import { getTranslations } from "next-intl/server";
-import { ButtonLink } from "./button-link";
+import { ActionLink } from "@/components/ui-kit/button";
 
-/** Temporary body for pages that are built in a later phase. */
+/** Temporary body for pages built in a later phase. */
 export async function ComingSoon({ title }: { title: string }) {
   const t = await getTranslations("ComingSoon");
 
   return (
-    <main className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center justify-center gap-4 px-6 py-24 text-center">
-      <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
+    <main className="mx-auto flex w-full max-w-[76rem] flex-1 flex-col items-center justify-center gap-4 px-4 py-24 text-center sm:px-6">
+      <p className="rounded-full bg-navy-soft px-3 py-1 text-xs font-bold text-navy">
         {t("badge")}
-      </span>
-      <h1 className="text-3xl font-black text-heading">{title}</h1>
-      <p className="text-sm text-subtle">{t("description")}</p>
-      <ButtonLink href="/" size="lg">
+      </p>
+      <h1 className="text-3xl font-extrabold text-navy">{title}</h1>
+      <p className="max-w-prose text-sm text-muted-text">{t("description")}</p>
+      <ActionLink href="/" size="lg" className="mt-2">
         {t("backHome")}
-      </ButtonLink>
+      </ActionLink>
     </main>
   );
 }

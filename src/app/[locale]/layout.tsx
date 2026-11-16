@@ -7,18 +7,17 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { getDirection, routing } from "@/i18n/routing";
 import "../globals.css";
 
-// One family for Arabic and Latin, as in the approved design.
 const cairo = Cairo({
   variable: "--font-cairo",
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+    { media: "(prefers-color-scheme: light)", color: "#eef2f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1725" },
   ],
 };
 

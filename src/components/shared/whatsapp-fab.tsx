@@ -1,21 +1,23 @@
 import { getTranslations } from "next-intl/server";
 import { siteConfig } from "@/lib/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import { WhatsAppButton } from "./whatsapp-button";
+import { WhatsAppIcon } from "./whatsapp-icon";
 
-/** Floating WhatsApp button. Renders nothing until a number is configured. */
+/** Floating button on small screens, where the header button is hidden. */
 export async function WhatsAppFab() {
   const t = await getTranslations("WhatsApp");
   const url = buildWhatsAppUrl(siteConfig.whatsappNumber, t("greeting"));
   if (!url) return null;
 
   return (
-    <WhatsAppButton
+    <a
       href={url}
-      label={t("label")}
-      iconOnly
-      className="fixed bottom-5 end-5 z-50 size-14 rounded-full border-2 border-background shadow-xl shadow-whatsapp/30 md:hidden"
-      iconClassName="size-7"
-    />
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={t("label")}
+      className="fixed bottom-5 end-5 z-50 grid size-14 place-items-center rounded-full bg-whatsapp text-white shadow-raised transition-colors hover:bg-whatsapp-deep sm:hidden"
+    >
+      <WhatsAppIcon className="size-7" />
+    </a>
   );
 }

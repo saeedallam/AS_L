@@ -1,167 +1,131 @@
 {
   "Metadata": {
-    "title": "Asmaa Model Stationery | School & Office Supplies",
-    "description": "A showcase of school, office and art supplies. Browse the products and ask on WhatsApp."
+    "title": "Asmaa Model Stationery | Premium School & Office Supplies",
+    "description": "Discover premium office and school supplies. Browse the products and reach us on WhatsApp."
   },
   "Common": {
     "storeName": "Asmaa Model Stationery",
     "storeNameShort": "Asmaa Stationery",
-    "storeTagline": "Model stationery and supplies",
+    "storeTagline": "Premium stationery and supplies",
     "switchLocale": "ع",
     "toggleTheme": "Toggle dark mode"
   },
   "Announcement": {
-    "badge": "Showcase",
-    "text": "Browse the products and ask about any item on WhatsApp"
+    "text": ""
   },
   "Nav": {
     "label": "Main navigation",
-    "categories": "Categories",
+    "skipToContent": "Skip to content",
+    "home": "Home",
     "products": "Products",
+    "categories": "Categories",
     "brands": "Brands",
-    "about": "Why us",
-    "gallery": "Gallery",
     "contact": "Contact",
-    "catalog": "Catalogue",
+    "gallery": "Gallery",
+    "services": "Services",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "skipToContent": "Skip to content"
+    "closeMenu": "Close menu"
   },
   "Search": {
     "label": "Search products",
-    "placeholder": "Search for a notebook, pen, bag…",
+    "placeholder": "Search for a product…",
     "submit": "Search"
-  },
-  "Home": {
-    "badge": "Your first stop for quality school and office supplies",
-    "titleStart": "Everything your student and your desk need,",
-    "titleAccent": "at the best quality",
-    "subtitle": "Discover a wide range of notebooks, geometry sets, pens, school bags and office supplies. Browse the showcase and ask about any product on WhatsApp.",
-    "browseProducts": "Explore products",
-    "contactUs": "Get in touch",
-    "stats": {
-      "products": {
-        "value": "[product count]",
-        "label": "products on display"
-      },
-      "brands": {
-        "value": "[brand count]",
-        "label": "approved brands"
-      },
-      "quality": {
-        "value": "[year founded]",
-        "label": "serving students since"
-      }
-    },
-    "heroImage": "Main photo slot: the storefront or a product collection",
-    "heroBadgeLabel": "Permanent showcase",
-    "heroBadgeValue": "[short line about the store]",
-    "categoriesEyebrow": "Showcase sections",
-    "categoriesTitle": "Browse our complete sections",
-    "categoriesDescription": "A range of school, university and office supplies, arranged to suit your needs",
-    "browseCategory": "Browse section",
-    "featuredEyebrow": "Selected products",
-    "featuredTitle": "Highlights from the showcase",
-    "sampleNote": "Sample products shown to preview the card design; replaced with your own from the dashboard.",
-    "allProducts": "View all products",
-    "samples": {
-      "backpack": {
-        "name": "Water-resistant school backpack",
-        "description": "Comfortable back support, several roomy pockets, and materials that last the school year."
-      },
-      "notebook": {
-        "name": "A5 ruled notebook",
-        "description": "High-quality paper, a sturdy cover, a page marker and a back pocket."
-      },
-      "pencilSet": {
-        "name": "Technical pencil set",
-        "description": "A complete set for technical drawing and study, with a ruler and eraser."
-      }
-    },
-    "brandsTitle": "Brands we stock",
-    "brandSlot": "[brand logo]",
-    "whyEyebrow": "Why Asmaa Stationery?",
-    "whyTitle": "A shopping experience that starts in the showroom",
-    "why": {
-      "authentic": {
-        "title": "Genuine products",
-        "description": "We buy from approved distributors so quality and durability are assured."
-      },
-      "advice": {
-        "title": "Help choosing",
-        "description": "We help you put together the school list accurately and within your budget."
-      },
-      "fast": {
-        "title": "Quick WhatsApp replies",
-        "description": "Send your list and we will go through it with you and prepare it before you arrive."
-      }
-    },
-    "contactEyebrow": "Contact us",
-    "contactTitle": "We are here for you all week",
-    "contact": {
-      "address": {
-        "label": "Address",
-        "value": "[store address]"
-      },
-      "phone": {
-        "label": "Phone",
-        "value": "[phone number]"
-      },
-      "hours": {
-        "label": "Opening hours",
-        "value": "[opening hours]"
-      }
-    },
-    "mapTitle": "Find the store on the map",
-    "mapOpen": "Open in Google Maps",
-    "mapPlaceholder": "The map appears once the location link is added"
-  },
-  "Categories": {
-    "school": {
-      "name": "School supplies",
-      "description": "Bags, pencil cases and classroom essentials"
-    },
-    "paper": {
-      "name": "Notebooks & paper",
-      "description": "Notebooks, copybooks, printing and drawing paper"
-    },
-    "writing": {
-      "name": "Pens & writing",
-      "description": "Ink, ballpoint, pencils and coloured pens"
-    },
-    "office": {
-      "name": "Office supplies",
-      "description": "Staplers, files and desk organisers"
-    }
-  },
-  "Product": {
-    "details": "Details",
-    "new": "New",
-    "noImage": "Product image"
   },
   "WhatsApp": {
     "label": "Chat with us on WhatsApp",
-    "quickAsk": "Quick enquiry",
-    "ask": "Ask",
-    "message": "Message on WhatsApp",
+    "headerCta": "Contact on WhatsApp",
+    "ask": "Ask about this",
     "greeting": "Hello, I would like to ask about your products.",
     "about": "Hello, I would like to ask about: {name}"
   },
+  "Home": {
+    "title": "Discover a world of premium office and school supplies",
+    "subtitle": "A wide range of notebooks, pens, bags, geometry sets and office essentials, chosen with care.",
+    "browseProducts": "Browse products",
+    "heroAlt": "A selection of notebooks, pens and school bags",
+    "heroSlot": "Main photo slot",
+    "photoSlot": "Product photo",
+    "brandSlot": "Brand photo",
+    "categoriesTitle": "Featured Categories",
+    "categoriesSubtitle": "Browse our carefully arranged sections to suit what you need.",
+    "categories": {
+      "school": "School supplies",
+      "art": "Art supplies",
+      "notebooks": "Notebooks",
+      "office": "Office supplies"
+    },
+    "productsTitle": "Featured Products",
+    "productsSubtitle": "A selection from the showcase. Ask about any item on WhatsApp.",
+    "allProducts": "View all products",
+    "products": {
+      "notebook": {
+        "name": "A5 leather notebook",
+        "meta": "Notebooks",
+        "price": "[price]"
+      },
+      "pen": {
+        "name": "Metal fountain pen",
+        "meta": "Premium pens",
+        "price": "[price]"
+      },
+      "case": {
+        "name": "Geometry pencil case",
+        "meta": "School supplies",
+        "price": "[price]"
+      },
+      "backpack": {
+        "name": "School backpack",
+        "meta": "Bags",
+        "price": "[price]"
+      }
+    },
+    "brandsTitle": "Popular Brands",
+    "brandsSubtitle": "We buy from approved distributors so quality is assured.",
+    "brands": {
+      "one": "[brand name]",
+      "two": "[brand name]",
+      "three": "[brand name]",
+      "four": "[brand name]"
+    },
+    "brandBrowse": "Browse products",
+    "whyTitle": "Why Choose Us",
+    "whySubtitle": "Expertise in choosing supplies, quality we trust, and a quick reply to your question.",
+    "why": {
+      "curation": "Expert curation",
+      "quality": "Premium quality",
+      "exclusive": "Exclusive brands",
+      "ready": "Quick preparation"
+    },
+    "galleryTitle": "Gallery",
+    "gallerySubtitle": "Shots from inside the shop and from our ranges.",
+    "gallerySlot": "Shop photo",
+    "whatsappTitle": "Contact on WhatsApp",
+    "whatsappBody": "To ask about any product or to prepare a school list, message us on WhatsApp and we will reply with what we have and the price.",
+    "visit": {
+      "address": "[store address]",
+      "phone": "[phone number]",
+      "hours": "[opening hours]"
+    }
+  },
   "ComingSoon": {
-    "badge": "Coming soon",
-    "description": "This page is under construction and will be available soon.",
+    "badge": "Under construction",
+    "description": "This page is being prepared and will be available soon.",
     "backHome": "Back to home"
   },
   "Footer": {
-    "tagline": "Your destination for stationery, school supplies and office essentials.",
+    "tagline": "Your trusted destination for stationery, school and office supplies.",
     "browse": "Quick links",
-    "more": "More sections",
-    "services": "Our services",
+    "more": "More",
+    "contact": "Contact",
+    "about": "About us",
     "faq": "FAQ",
     "privacy": "Privacy policy",
-    "quickContact": "Quick contact",
-    "quickContactText": "Message us on WhatsApp for any enquiry or to prepare a school list.",
-    "rights": "© {store}. All rights reserved (product showcase)."
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "youtube": "YouTube"
+    },
+    "rights": "© {store}. All rights reserved."
   },
   "NotFound": {
     "title": "Page not found",

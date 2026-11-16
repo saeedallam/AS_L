@@ -10,6 +10,6 @@ export default async function Page({ params }: PageProps<"/[locale]/services">) 
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const t = await getTranslations("Footer");
+  const t = await getTranslations("Nav");
   return <ComingSoon title={t("services")} />;
 }
