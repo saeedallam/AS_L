@@ -9,14 +9,9 @@ type Props = {
   sizes: string;
   priority?: boolean;
   className?: string;
-  /** Text shown on the placeholder so the slot is self-explanatory. */
   slotLabel?: string;
 };
 
-/**
- * A product photo. Falls back to a tinted placeholder with the shop's
- * mark, so an empty catalogue still reads as a finished layout.
- */
 export function Photo({
   media,
   alt,

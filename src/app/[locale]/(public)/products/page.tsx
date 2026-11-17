@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Suspense } from "react";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -8,6 +10,14 @@ import {
 } from "@/components/catalog/catalog-results";
 import { Breadcrumbs } from "@/components/ui-kit/breadcrumbs";
 import { routing } from "@/i18n/routing";
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/products">): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Catalog" });
+  return pageMetadata(locale, "/products", t("title"), t("subtitle"));
+}
 
 export default async function Page({
   params,

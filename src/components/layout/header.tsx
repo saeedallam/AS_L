@@ -1,37 +1,45 @@
-import { getTranslations } from "next-intl/server";
+import { ShieldCheck } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { WhatsAppIcon } from "@/components/shared/whatsapp-icon";
 import { BrandMark } from "@/components/ui-kit/brand-mark";
-import { ActionAnchor } from "@/components/ui-kit/button";
+import { ActionAnchor, ActionLink } from "@/components/ui-kit/button";
 import { Link } from "@/i18n/navigation";
-import { mainNav, siteConfig } from "@/lib/site-config";
+import { getWebsiteSettings } from "@/lib/repository";
+import { mainNav } from "@/lib/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export async function Header() {
-  const t = await getTranslations("Nav");
-  const common = await getTranslations("Common");
-  const whatsapp = await getTranslations("WhatsApp");
+  const [locale, t, common, whatsapp, settings] = await Promise.all([
+    getLocale(),
+    getTranslations("Nav"),
+    getTranslations("Common"),
+    getTranslations("WhatsApp"),
+    getWebsiteSettings(),
+  ]);
 
-  const items = mainNav.map((item) => ({ href: item.href, label: t(item.key) }));
+  const items = mainNav.map((item) => ({
+    href: item.href,
+    label: t(item.key),
+  }));
   const whatsappUrl = buildWhatsAppUrl(
-    siteConfig.whatsappNumber,
+    settings.whatsapp_number,
     whatsapp("greeting"),
+    true,
   );
+  const storeName =
+    locale === "en" ? settings.store_name_en : settings.store_name_ar;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-surface">
+    <header className="sticky top-0 z-40 border-b border-line bg-surface/95 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-[76rem] items-center gap-6 px-4 sm:px-6 lg:px-8">
+        {/* Official Logo + Store Name ONLY (no tagline underneath) */}
         <Link href="/" className="flex min-w-0 items-center gap-3">
-          <BrandMark className="size-11" />
-          <span className="min-w-0">
-            <span className="block truncate text-base font-extrabold leading-tight text-navy sm:text-lg">
-              {common("storeNameShort")}
-            </span>
-            <span className="hidden truncate text-xs text-muted-text sm:block">
-              {common("storeTagline")}
-            </span>
+          <BrandMark className="size-12" />
+          <span className="truncate text-lg font-extrabold text-navy sm:text-xl">
+            {storeName || common("storeName")}
           </span>
         </Link>
 
@@ -53,6 +61,15 @@ export async function Header() {
         <div className="ms-auto flex shrink-0 items-center gap-2 lg:ms-0">
           <LocaleSwitcher label={common("switchLocale")} />
           <ThemeToggle label={common("toggleTheme")} />
+          <ActionLink
+            href="/admin"
+            variant="outline"
+            size="sm"
+            className="hidden md:inline-flex"
+          >
+            <ShieldCheck className="size-4 text-blue" />
+            <span>{common("adminDashboard")}</span>
+          </ActionLink>
           {whatsappUrl ? (
             <ActionAnchor
               href={whatsappUrl}
@@ -65,7 +82,10 @@ export async function Header() {
             </ActionAnchor>
           ) : null}
           <MobileMenu
-            items={items}
+            items={[
+              ...items,
+              { href: "/admin", label: common("adminDashboard") },
+            ]}
             labels={{
               open: t("openMenu"),
               close: t("closeMenu"),

@@ -1,29 +1,28 @@
-import { BadgeCheck, Gem, Sparkles, Truck } from "lucide-react";
+import { BadgeCheck, Gem, Sparkles, Truck, Layers } from "lucide-react";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { CategoryTile } from "@/components/catalog/category-tile";
-import { ProductCard } from "@/components/catalog/product-card";
+import {
+  HeroInteractiveDeck,
+  HomeInteractiveProducts,
+  SchoolStageExplorer,
+} from "@/components/catalog/home-interactive-showcase";
 import { Photo } from "@/components/shared/photo";
 import { WhatsAppIcon } from "@/components/shared/whatsapp-icon";
 import { ActionAnchor, ActionLink } from "@/components/ui-kit/button";
 import { FeatureTile } from "@/components/ui-kit/feature-tile";
 import { SectionTitle } from "@/components/ui-kit/section-title";
-import type { MediaKey } from "@/lib/media";
+import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import {
-  brands,
-  categories,
-  countIn,
-  sampleProducts,
-} from "@/lib/sample-catalog";
-import { siteConfig } from "@/lib/site-config";
+  getBrandsList,
+  getCategoriesList,
+  getGalleryList,
+  getProductsList,
+  getWebsiteSettings,
+} from "@/lib/repository";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-
-// The home page shows the first few of the same sections, brands and products
-// the rest of the site uses, so every tile here links somewhere real.
-const featuredCategories = categories.slice(0, 4);
-const featuredProducts = sampleProducts.slice(0, 4);
 
 const reasons = [
   { key: "curation", icon: Sparkles, tint: "blue" },
@@ -32,13 +31,31 @@ const reasons = [
   { key: "ready", icon: Truck, tint: "blue" },
 ] as const;
 
-const gallery = [
-  "gallery-1",
-  "gallery-2",
-  "gallery-3",
-  "gallery-4",
-  "gallery-5",
-] as const satisfies readonly MediaKey[];
+const BRAND_WORDMARKS: Record<
+  string,
+  { title: string; subtitle: string; monogram: string }
+> = {
+  one: {
+    title: "FABER-CASTELL",
+    subtitle: "since 1761",
+    monogram: "FC",
+  },
+  two: {
+    title: "STAEDTLER",
+    subtitle: "Nürnberg",
+    monogram: "ST",
+  },
+  three: {
+    title: "MIDORI",
+    subtitle: "Japan",
+    monogram: "MD",
+  },
+  four: {
+    title: "rOtring",
+    subtitle: "Germany",
+    monogram: "rO",
+  },
+};
 
 const shell = "mx-auto w-full max-w-[76rem] px-4 sm:px-6 lg:px-8";
 
@@ -47,40 +64,74 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const t = await getTranslations("Home");
-  const whatsapp = await getTranslations("WhatsApp");
-  const tCatalogData = await getTranslations("CatalogData");
-  const tCategories = await getTranslations("Categories");
+  const [
+    t,
+    whatsapp,
+    tCategories,
+    allCategories,
+    allProducts,
+    allBrands,
+    allGallery,
+    settings,
+  ] = await Promise.all([
+    getTranslations("Home"),
+    getTranslations("WhatsApp"),
+    getTranslations("Categories"),
+    getCategoriesList(),
+    getProductsList(),
+    getBrandsList(),
+    getGalleryList(),
+    getWebsiteSettings(),
+  ]);
 
-  const askAbout = (name: string) =>
-    buildWhatsAppUrl(siteConfig.whatsappNumber, whatsapp("about", { name }));
+  const featuredProducts = allProducts
+    .filter((p) => p.is_featured)
+    .concat(allProducts.filter((p) => !p.is_featured));
+
+  const popularBrands = allBrands.slice(0, 4);
+  const galleryItems = allGallery.slice(0, 5);
+
+  const countInCategory = (slug: string) =>
+    allProducts.filter((p) => p.category_slug === slug).length;
+
   const contactUrl = buildWhatsAppUrl(
-    siteConfig.whatsappNumber,
+    settings.whatsapp_number,
     whatsapp("greeting"),
+    true,
   );
 
   return (
     <main className="flex flex-col pb-4">
-      {/* Hero: photo on one side, headline and action on the other. */}
-      <section className={`${shell} pb-14 pt-10 lg:pb-20 lg:pt-14`}>
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-          <div className="order-2 text-center lg:order-none lg:text-start">
-            <h1 className="text-[1.9rem] font-extrabold leading-[1.35] text-navy sm:text-4xl lg:text-[2.6rem] lg:leading-[1.3]">
+      {/* 1. Rich Editorial Hero Section */}
+      <section className={`${shell} pb-14 pt-8 lg:pb-20 lg:pt-12`}>
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="order-2 text-center lg:order-none lg:col-span-7 lg:text-start">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-extrabold text-navy shadow-xs">
+              <span className="size-2 rounded-full bg-gold" />
+              <span>مكتبة أسماء النموذجية • Asmaa Model Library</span>
+            </div>
+
+            <h1 className="text-[1.9rem] font-extrabold leading-[1.32] text-navy sm:text-4xl lg:text-[2.65rem] lg:leading-[1.26]">
               {t("title")}
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted-text lg:mx-0">
+            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted-text lg:mx-0 sm:text-base">
               {t("subtitle")}
             </p>
+
             <div className="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
               <ActionLink href="/products" size="lg">
                 {t("browseProducts")}
+              </ActionLink>
+              <ActionLink href="/categories" variant="outline" size="lg">
+                <Layers className="size-4 text-blue" />
+                <span>تصفح الأقسام</span>
               </ActionLink>
               {contactUrl ? (
                 <ActionAnchor
                   href={contactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  variant="outline"
+                  variant="whatsapp"
                   size="lg"
                 >
                   <WhatsAppIcon className="size-4" />
@@ -88,102 +139,124 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 </ActionAnchor>
               ) : null}
             </div>
+
+            {/* 4 Key Library Metrics */}
+            <div className="mt-9 grid grid-cols-2 gap-3 border-t border-line pt-6 sm:grid-cols-4 text-start">
+              <div className="rounded-xl border border-line bg-surface p-3.5 shadow-xs">
+                <p className="text-xl font-extrabold text-navy">+٨٣٠</p>
+                <p className="text-xs text-muted-text">منتج مدرسي ومكتبي</p>
+              </div>
+              <div className="rounded-xl border border-line bg-surface p-3.5 shadow-xs">
+                <p className="text-xl font-extrabold text-blue">
+                  {allCategories.length} أقسام
+                </p>
+                <p className="text-xs text-muted-text">تغطية لكل المراحل</p>
+              </div>
+              <div className="rounded-xl border border-line bg-surface p-3.5 shadow-xs">
+                <p className="text-xl font-extrabold text-navy">١٠٠٪</p>
+                <p className="text-xs text-muted-text">ماركات أصلية معتمدة</p>
+              </div>
+              <div className="rounded-xl border border-gold/40 bg-[#fef4dc]/60 p-3.5 shadow-xs">
+                <p className="text-xl font-extrabold text-navy">فوري</p>
+                <p className="text-xs font-semibold text-navy/80">
+                  تجهيز قوائم المدارس
+                </p>
+              </div>
+            </div>
           </div>
-          <Photo
-            media="hero"
-            alt={t("heroAlt")}
-            slotLabel={t("heroSlot")}
-            priority
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="order-1 aspect-[4/3] rounded-xl shadow-card lg:order-none"
-          />
+
+          <div className="order-1 lg:order-none lg:col-span-5">
+            <HeroInteractiveDeck
+              products={featuredProducts}
+              categories={allCategories}
+              locale={locale}
+              whatsappNumber={settings.whatsapp_number}
+            />
+          </div>
         </div>
       </section>
 
-      {/* Featured categories: photo tiles with the name banded on. */}
+      {/* 2. Featured Categories (All 6 Sections) */}
       <section className={`${shell} py-14`}>
         <SectionTitle
           title={t("categoriesTitle")}
           subtitle={t("categoriesSubtitle")}
         />
-        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-          {featuredCategories.map(({ key, media }) => (
-            <CategoryTile
-              key={key}
-              name={tCatalogData(`categories.${key}`)}
-              note={tCategories("itemCount", { count: countIn("category", key) })}
-              href={`/categories/${key}`}
-              media={media}
-              slotLabel={tCatalogData(`categories.${key}`)}
-            />
-          ))}
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+          {allCategories.map((cat) => {
+            const name =
+              locale === "en" ? cat.name_en || cat.name_ar : cat.name_ar;
+            return (
+              <CategoryTile
+                key={cat.id}
+                name={name}
+                note={tCategories("itemCount", {
+                  count: countInCategory(cat.slug),
+                })}
+                href={`/categories/${cat.slug}`}
+                media={cat.image_path}
+                slotLabel={name}
+              />
+            );
+          })}
         </div>
       </section>
 
-      {/* Featured products. */}
+      {/* 3. Interactive Featured Products with Filter Tabs & Quick View */}
       <section className={`${shell} py-14`}>
         <SectionTitle
           title={t("productsTitle")}
           subtitle={t("productsSubtitle")}
         />
-        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-          {featuredProducts.map((product) => {
-            const name = locale === "en" ? product.nameEn : product.name;
-            return (
-              <ProductCard
-                key={product.slug}
-                name={name}
-                meta={tCatalogData(`categories.${product.category}`)}
-                href={`/products/${product.slug}`}
-                media={product.media}
-                slotLabel={name}
-                askUrl={askAbout(name)}
-                askLabel={whatsapp("ask")}
-              />
-            );
-          })}
-        </div>
-        <div className="mt-8 text-center">
-          <ActionLink href="/products" variant="outline" size="lg">
+        <HomeInteractiveProducts
+          products={featuredProducts}
+          categories={allCategories}
+          locale={locale}
+          whatsappNumber={settings.whatsapp_number}
+              currencyLabel={settings.currency_label}
+        />
+        <div className="mt-10 text-center">
+          <ActionLink href="/products" variant="navy" size="lg">
             {t("allProducts")}
           </ActionLink>
         </div>
       </section>
 
-      {/* Popular brands. */}
+      {/* 4. Interactive School Stage & Office Supplies Explorer */}
+      <section className={`${shell} py-14`}>
+        <SchoolStageExplorer locale={locale} />
+      </section>
+
+      {/* 5. Popular Brands — Clean Logo Cards ONLY (nothing underneath the logo) */}
       <section className={`${shell} py-14`}>
         <SectionTitle title={t("brandsTitle")} subtitle={t("brandsSubtitle")} />
         <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-          {brands.map(({ key, media }) => (
-            <article
-              key={key}
-              className="group overflow-hidden rounded-xl border border-line bg-surface shadow-card transition-shadow hover:shadow-raised"
-            >
-              <Photo
-                media={media}
-                alt={tCatalogData(`brands.${key}`)}
-                slotLabel={t("brandSlot")}
-                sizes="(min-width: 1024px) 25vw, 50vw"
-                className="aspect-[5/4]"
-              />
-              <div className="p-4 text-center">
-                <p className="text-sm font-extrabold uppercase tracking-wide text-navy">
-                  {tCatalogData(`brands.${key}`)}
-                </p>
-                <ActionLink
-                  href="/brands"
-                  className="mt-3 w-full"
-                  variant="outline"
-                >
-                  {t("brandBrowse")}
-                </ActionLink>
-              </div>
-            </article>
-          ))}
+          {popularBrands.map((brand) => {
+            const wm = BRAND_WORDMARKS[brand.slug] || {
+              title: brand.name_en || brand.name_ar,
+              subtitle: "",
+              monogram: brand.slug.slice(0, 2).toUpperCase(),
+            };
+            return (
+              <Link
+                key={brand.id}
+                href={`/products?brand=${brand.slug}`}
+                aria-label={brand.name_ar}
+                className="group flex aspect-[16/9] flex-col items-center justify-center rounded-xl border border-line bg-surface p-6 text-center shadow-card transition-all hover:border-blue hover:shadow-raised"
+              >
+                <span className="mb-2 grid size-11 place-items-center rounded-lg bg-navy font-mono text-sm font-black text-gold transition-colors group-hover:bg-blue group-hover:text-white">
+                  {wm.monogram}
+                </span>
+                <span className="font-mono text-base font-black tracking-wider text-navy sm:text-lg">
+                  {wm.title}
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
-      {/* Why choose us. */}
+      {/* 6. Why Choose Us */}
       <section className={`${shell} py-14`}>
         <SectionTitle title={t("whyTitle")} subtitle={t("whySubtitle")} />
         <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
@@ -198,25 +271,34 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         </div>
       </section>
 
-      {/* Gallery. */}
+      {/* 7. Gallery */}
       <section className={`${shell} py-14`}>
-        <SectionTitle title={t("galleryTitle")} subtitle={t("gallerySubtitle")} />
+        <SectionTitle
+          title={t("galleryTitle")}
+          subtitle={t("gallerySubtitle")}
+        />
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          {gallery.map((key) => (
-            <li key={key}>
-              <Photo
-                media={key}
-                alt={t("gallerySlot")}
-                slotLabel={t("gallerySlot")}
-                sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
-                className="aspect-square rounded-xl shadow-card"
-              />
-            </li>
-          ))}
+          {galleryItems.map((item) => {
+            const caption =
+              locale === "en"
+                ? item.caption_en || item.caption_ar
+                : item.caption_ar;
+            return (
+              <li key={item.id}>
+                <Photo
+                  media={item.storage_path}
+                  alt={caption}
+                  slotLabel={caption}
+                  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
+                  className="aspect-square rounded-xl shadow-card"
+                />
+              </li>
+            );
+          })}
         </ul>
       </section>
 
-      {/* WhatsApp panel. */}
+      {/* 8. WhatsApp Panel */}
       <section className={`${shell} py-14`}>
         <div className="flex flex-col items-center gap-8 rounded-xl border border-line bg-surface p-8 text-center shadow-card sm:p-12 lg:flex-row-reverse lg:justify-between lg:text-start">
           <WhatsAppIcon className="size-20 shrink-0 text-whatsapp" />

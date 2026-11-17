@@ -7,24 +7,36 @@ import { ActionLink } from "@/components/ui-kit/button";
 import { Breadcrumbs } from "@/components/ui-kit/breadcrumbs";
 import { routing } from "@/i18n/routing";
 import {
-  categories,
-  productsInCategory,
-  type CategoryKey,
-} from "@/lib/sample-catalog";
-import { siteConfig } from "@/lib/site-config";
-import { buildWhatsAppUrl } from "@/lib/whatsapp";
-
-export function generateStaticParams() {
-  return categories.map(({ key }) => ({ slug: key }));
-}
+  getBrandsList,
+  getCategoriesList,
+  getProductsList,
+  getWebsiteSettings,
+} from "@/lib/repository";
+import {
+  buildProductWhatsAppMessage,
+  buildWhatsAppUrl,
+} from "@/lib/whatsapp";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/categories/[slug]">): Promise<Metadata> {
   const { locale, slug } = await params;
-  if (!categories.some((category) => category.key === slug)) return {};
-  const t = await getTranslations({ locale, namespace: "CatalogData" });
-  return { title: t(`categories.${slug}`) };
+  const categories = await getCategoriesList();
+  const found = categories.find((c) => c.slug === slug);
+  if (!found) notFound();
+  const title = locale === "en" ? found.name_en || found.name_ar : found.name_ar;
+  const description =
+    (locale === "en" ? found.description_en || found.description_ar : found.description_ar) || undefined;
+  const path = `/${locale}/categories/${found.slug}`;
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: path,
+      languages: { ar: `/ar/categories/${found.slug}`, en: `/en/categories/${found.slug}` },
+    },
+    openGraph: { title, description, url: path },
+  };
 }
 
 export default async function Page({
@@ -34,20 +46,40 @@ export default async function Page({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const category = categories.find((item) => item.key === slug);
-  if (!category) notFound();
-
-  const [t, tCatalog, tCatalogData, tNav, tWhatsApp] = await Promise.all([
+  const [
+    t,
+    tCatalog,
+    tNav,
+    tWhatsApp,
+    categories,
+    allProducts,
+    allBrands,
+    settings,
+  ] = await Promise.all([
     getTranslations("Categories"),
     getTranslations("Catalog"),
-    getTranslations("CatalogData"),
     getTranslations("Nav"),
     getTranslations("WhatsApp"),
+    getCategoriesList(),
+    getProductsList(),
+    getBrandsList(),
+    getWebsiteSettings(),
   ]);
 
-  const key = category.key as CategoryKey;
-  const name = tCatalogData(`categories.${key}`);
-  const products = productsInCategory(key);
+  const category = categories.find((item) => item.slug === slug);
+  if (!category) notFound();
+
+  const name =
+    locale === "en"
+      ? category.name_en || category.name_ar
+      : category.name_ar;
+  const products = allProducts.filter((p) => p.category_slug === category.slug);
+
+  const brandNameBySlug = (bSlug: string) => {
+    const found = allBrands.find((b) => b.slug === bSlug);
+    if (!found) return bSlug;
+    return locale === "en" ? found.name_en || found.name_ar : found.name_ar;
+  };
 
   return (
     <div className="mx-auto w-full max-w-[76rem] px-4 pt-6 pb-16 sm:px-6 lg:px-8">
@@ -69,9 +101,8 @@ export default async function Page({
             {t("itemCount", { count: products.length })}
           </p>
         </div>
-        {/* The catalogue page carries the full filters for this section. */}
         <ActionLink
-          href={`/products?cat=${key}`}
+          href={`/products?cat=${category.slug}`}
           variant="outline"
           size="sm"
         >
@@ -81,20 +112,28 @@ export default async function Page({
 
       <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 xl:grid-cols-5">
         {products.map((product) => {
-          const productName = locale === "en" ? product.nameEn : product.name;
+          const productName =
+            locale === "en"
+              ? product.name_en || product.name_ar
+              : product.name_ar;
           return (
             <li key={product.slug}>
               <ProductCard
                 name={productName}
-                meta={tCatalogData(`brands.${product.brand}`)}
+                meta={brandNameBySlug(product.brand_slug)}
                 href={`/products/${product.slug}`}
                 media={product.media}
                 slotLabel={productName}
                 buttonVariant="outline"
                 askLabel={tWhatsApp("ask")}
                 askUrl={buildWhatsAppUrl(
-                  siteConfig.whatsappNumber,
-                  tWhatsApp("about", { name: productName }),
+                  settings.whatsapp_number,
+                  buildProductWhatsAppMessage({
+                    locale,
+                    productName,
+                    slug: product.slug,
+                  }),
+                  true,
                 )}
               />
             </li>

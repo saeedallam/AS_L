@@ -1,12 +1,19 @@
 import { getTranslations } from "next-intl/server";
-import { siteConfig } from "@/lib/site-config";
+import { getWebsiteSettings } from "@/lib/repository";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./whatsapp-icon";
 
 /** Floating button on small screens, where the header button is hidden. */
 export async function WhatsAppFab() {
-  const t = await getTranslations("WhatsApp");
-  const url = buildWhatsAppUrl(siteConfig.whatsappNumber, t("greeting"));
+  const [t, settings] = await Promise.all([
+    getTranslations("WhatsApp"),
+    getWebsiteSettings(),
+  ]);
+  const url = buildWhatsAppUrl(
+    settings.whatsapp_number,
+    t("greeting"),
+    true,
+  );
   if (!url) return null;
 
   return (

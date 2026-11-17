@@ -3,25 +3,23 @@ import { FilterPanel, type FilterGroup } from "@/components/catalog/filter-panel
 import { Pagination } from "@/components/catalog/pagination";
 import { ProductCard } from "@/components/catalog/product-card";
 import { SearchField } from "@/components/catalog/search-field";
+import { ageKeys, PAGE_SIZE, type AgeKey } from "@/lib/catalog-constants";
 import {
-  ageKeys,
-  brandKeys,
-  categoryKeys,
-  PAGE_SIZE,
-  queryProducts,
-  sampleProducts,
-  type AgeKey,
-  type BrandKey,
-  type CategoryKey,
-} from "@/lib/sample-catalog";
-import { siteConfig } from "@/lib/site-config";
-import { buildWhatsAppUrl } from "@/lib/whatsapp";
+  getBrandsList,
+  getCatalogFacets,
+  getCategoriesList,
+  getWebsiteSettings,
+  queryCatalog,
+} from "@/lib/repository";
+import {
+  buildProductWhatsAppMessage,
+  buildWhatsAppUrl,
+} from "@/lib/whatsapp";
 
 type Raw = string | string[] | undefined;
 type SearchParams = Record<string, Raw>;
 
-/** Query strings arrive as one value or many; keep only what we recognise. */
-function readList<T extends string>(raw: Raw, allowed: readonly T[]): T[] {
+function readList(raw: Raw, allowed: readonly string[]): string[] {
   const values = raw === undefined ? [] : Array.isArray(raw) ? raw : [raw];
   return allowed.filter((option) => values.includes(option));
 }
@@ -33,7 +31,6 @@ function readPage(raw: Raw): number {
 
 const shell = "grid gap-6 lg:grid-cols-[1fr_17rem]";
 
-/** Shown while the filtered results resolve, so the layout never jumps. */
 export function CatalogResultsFallback() {
   return (
     <div aria-hidden>
@@ -60,47 +57,71 @@ export async function CatalogResults({
   locale: string;
   searchParams: Promise<SearchParams>;
 }) {
-  const sp = await searchParams;
-  const q = (Array.isArray(sp.q) ? sp.q[0] : sp.q)?.slice(0, 80) ?? "";
-  const cat = readList(sp.cat, categoryKeys);
-  const brand = readList(sp.brand, brandKeys);
-  const age = readList(sp.age, ageKeys);
-
-  const [t, tCatalogData, tSearch, tWhatsApp] = await Promise.all([
+  const [
+    sp,
+    t,
+    tCatalogData,
+    tSearch,
+    tWhatsApp,
+    allCategories,
+    allBrands,
+    settings,
+    facets,
+  ] = await Promise.all([
+    searchParams,
     getTranslations("Catalog"),
     getTranslations("CatalogData"),
     getTranslations("Search"),
     getTranslations("WhatsApp"),
+    getCategoriesList(),
+    getBrandsList(),
+    getWebsiteSettings(),
+    getCatalogFacets(),
   ]);
 
-  const matched = queryProducts({ q, cat, brand, age, sort: "newest" });
-  const pageCount = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
-  const page = Math.min(readPage(sp.page), pageCount);
-  const visible = matched.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const allowedCats = allCategories.map((c) => c.slug);
+  const allowedBrands = allBrands.map((b) => b.slug);
 
-  // Counts come from the whole catalogue, so a filter never reads as empty.
-  const countBy = (key: "category" | "brand" | "age", value: string) =>
-    sampleProducts.filter((product) => product[key] === value).length;
+  const q = (Array.isArray(sp.q) ? sp.q[0] : sp.q)?.slice(0, 80) ?? "";
+  const cat = readList(sp.cat, allowedCats);
+  const brand = readList(sp.brand, allowedBrands);
+  const age = readList(sp.age, ageKeys) as AgeKey[];
+  const sortRaw = Array.isArray(sp.sort) ? sp.sort[0] : sp.sort;
+  const sort =
+    sortRaw === "name" || sortRaw === "featured" ? sortRaw : "newest";
+
+  // Filtering, search, sorting and pagination all run in the database.
+  const result = await queryCatalog({
+    q,
+    categoryIds: allCategories.filter((c) => cat.includes(c.slug)).map((c) => c.id),
+    brandIds: allBrands.filter((b) => brand.includes(b.slug)).map((b) => b.id),
+    ages: age,
+    sort,
+    page: readPage(sp.page),
+    pageSize: PAGE_SIZE,
+  });
+  const { page, pageCount } = result;
+  const visible = result.items;
 
   const groups: FilterGroup[] = [
     {
       name: "cat",
       legend: t("categories"),
       selected: cat,
-      options: categoryKeys.map((value: CategoryKey) => ({
-        value,
-        label: tCatalogData(`categories.${value}`),
-        count: countBy("category", value),
+      options: allCategories.map((c) => ({
+        value: c.slug,
+        label: locale === "en" ? c.name_en || c.name_ar : c.name_ar,
+        count: facets.count("category_id", c.id),
       })),
     },
     {
       name: "brand",
       legend: t("brands"),
       selected: brand,
-      options: brandKeys.map((value: BrandKey) => ({
-        value,
-        label: tCatalogData(`brands.${value}`),
-        count: countBy("brand", value),
+      options: allBrands.map((b) => ({
+        value: b.slug,
+        label: locale === "en" ? b.name_en || b.name_ar : b.name_ar,
+        count: facets.count("brand_id", b.id),
       })),
     },
     {
@@ -110,18 +131,18 @@ export async function CatalogResults({
       options: ageKeys.map((value: AgeKey) => ({
         value,
         label: tCatalogData(`ages.${value}`),
-        count: countBy("age", value),
+        count: facets.count("age_stage", value),
       })),
     },
   ];
 
-  /** Keeps every active filter while only the page number changes. */
-  const hrefFor = (next: number) => {
+  const hrefFor = (next: number, nextSort = sort) => {
     const search = new URLSearchParams();
     if (q) search.set("q", q);
     for (const value of cat) search.append("cat", value);
     for (const value of brand) search.append("brand", value);
     for (const value of age) search.append("age", value);
+    if (nextSort !== "newest") search.set("sort", nextSort);
     if (next > 1) search.set("page", String(next));
     const query = search.toString();
     return query ? `/products?${query}` : "/products";
@@ -135,6 +156,12 @@ export async function CatalogResults({
     ...age.map((value) => ({ name: "age", value })),
   ];
   const clearHref = `/${locale}/products`;
+
+  const brandNameBySlug = (slug: string) => {
+    const found = allBrands.find((b) => b.slug === slug);
+    if (!found) return slug;
+    return locale === "en" ? found.name_en || found.name_ar : found.name_ar;
+  };
 
   return (
     <>
@@ -163,27 +190,64 @@ export async function CatalogResults({
           aria-label={t("resultsLabel")}
           className="lg:col-start-1 lg:row-start-1"
         >
-          <p aria-live="polite" className="mb-4 text-sm text-muted-text">
-            {t("count", { count: matched.length })}
-          </p>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <p aria-live="polite" className="text-sm text-muted-text">
+              {t("count", { count: result.total })}
+            </p>
+
+            {/* Sort switcher */}
+            <div className="flex items-center gap-2 text-xs">
+              <span className="font-bold text-muted-text">{t("sortLabel")}:</span>
+              {(["newest", "featured", "name"] as const).map((sKey) => {
+                const label =
+                  sKey === "newest"
+                    ? t("sortNewest")
+                    : sKey === "featured"
+                      ? t("sortFeatured")
+                      : t("sortName");
+                const active = sort === sKey;
+                return (
+                  <a
+                    key={sKey}
+                    href={`/${locale}${hrefFor(1, sKey)}`}
+                    className={`rounded-lg px-3 py-1.5 font-bold transition-colors ${
+                      active
+                        ? "bg-navy text-white dark:text-navy-deep"
+                        : "border border-line bg-surface text-navy hover:bg-navy-soft/60"
+                    }`}
+                  >
+                    {label}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
 
           {visible.length > 0 ? (
             <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 xl:grid-cols-5">
               {visible.map((product) => {
-                const name = locale === "en" ? product.nameEn : product.name;
+                const name =
+                  locale === "en"
+                    ? product.name_en || product.name_ar
+                    : product.name_ar;
                 return (
                   <li key={product.slug}>
                     <ProductCard
                       name={name}
-                      meta={tCatalogData(`brands.${product.brand}`)}
+                      meta={brandNameBySlug(product.brand_slug)}
                       href={`/products/${product.slug}`}
                       media={product.media}
                       slotLabel={name}
                       buttonVariant="outline"
                       askLabel={tWhatsApp("ask")}
                       askUrl={buildWhatsAppUrl(
-                        siteConfig.whatsappNumber,
-                        tWhatsApp("about", { name }),
+                        settings.whatsapp_number,
+                        buildProductWhatsAppMessage({
+                          locale,
+                          productName: name,
+                          slug: product.slug,
+                        }),
+                        true,
                       )}
                     />
                   </li>
@@ -206,7 +270,7 @@ export async function CatalogResults({
           <Pagination
             page={page}
             pageCount={pageCount}
-            hrefFor={hrefFor}
+            hrefFor={(p) => hrefFor(p, sort)}
             labels={{
               nav: t("paginationLabel"),
               previous: t("previous"),

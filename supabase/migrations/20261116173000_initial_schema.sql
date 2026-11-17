@@ -54,6 +54,9 @@ create table public.brands (
   name_ar text not null,
   name_en text,
   slug text not null unique,
+  description_ar text,
+  description_en text,
+  website_url text,
   logo_path text,
   is_visible boolean not null default true,
   sort_order integer not null default 0,
@@ -74,6 +77,9 @@ create table public.products (
   description_en text,
   sku text unique,
   display_price numeric(10, 2) check (display_price is null or display_price >= 0),
+  promotional_price numeric(10, 2) check (promotional_price is null or promotional_price >= 0),
+  seo_title text,
+  seo_description text,
   is_featured boolean not null default false,
   is_published boolean not null default false,
   published_at timestamptz,
@@ -146,6 +152,7 @@ create table public.website_settings (
   announcement_en text,
   social_links jsonb not null default '{}'::jsonb,
   homepage_content jsonb not null default '{}'::jsonb,
+  seo_settings jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -354,4 +361,4 @@ create policy "Admins delete media objects" on storage.objects
 -- ---------- Default settings row ----------
 
 insert into public.website_settings (id, store_name_ar, store_name_en)
-values (1, 'مكتبة أسماء النموذجية', 'Asmaa Model Stationery');
+values (1, 'مكتبة أسماء النموذجية', 'Asmaa Model Library');

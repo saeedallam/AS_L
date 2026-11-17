@@ -1,17 +1,18 @@
 {
   "Metadata": {
-    "title": "Asmaa Model Stationery | Premium School & Office Supplies",
-    "description": "Discover premium office and school supplies. Browse the products and reach us on WhatsApp."
+    "title": "Asmaa Model Library | مكتبة أسماء النموذجية",
+    "description": "Asmaa Model Library (مكتبة أسماء النموذجية): Discover premium office, school, art, and educational supplies. Browse our catalog and reach us on WhatsApp."
   },
   "Common": {
-    "storeName": "Asmaa Model Stationery",
-    "storeNameShort": "Asmaa Stationery",
-    "storeTagline": "Premium stationery and supplies",
+    "storeName": "Asmaa Model Library",
+    "storeNameShort": "Asmaa Model Library",
+    "storeTagline": "مكتبة أسماء النموذجية • Stationery & School Supplies",
     "switchLocale": "ع",
-    "toggleTheme": "Toggle dark mode"
+    "toggleTheme": "Toggle dark mode",
+    "adminDashboard": "Admin"
   },
   "Announcement": {
-    "text": ""
+    "text": "Welcome to Asmaa Model Library (مكتبة أسماء النموذجية) — Your showcase catalog for stationery, school, and office supplies"
   },
   "Nav": {
     "label": "Main navigation",
@@ -20,32 +21,34 @@
     "products": "Products",
     "categories": "Categories",
     "brands": "Brands",
-    "contact": "Contact",
-    "gallery": "Gallery",
     "services": "Services",
+    "gallery": "Gallery",
+    "about": "About Us",
+    "faq": "FAQ",
+    "contact": "Contact",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
   "Search": {
     "label": "Search products",
-    "placeholder": "Search for a product…",
+    "placeholder": "Search for a product, SKU, or brand…",
     "submit": "Search"
   },
   "WhatsApp": {
     "label": "Chat with us on WhatsApp",
     "headerCta": "Contact on WhatsApp",
-    "ask": "Ask about this",
-    "greeting": "Hello, I would like to ask about your products.",
-    "about": "Hello, I would like to ask about: {name}"
+    "ask": "Ask on WhatsApp",
+    "greeting": "Hello Asmaa Model Library, I would like to ask about your products.",
+    "about": "Hello Asmaa Model Library, I would like to ask about: {name}"
   },
   "Home": {
-    "title": "Discover a world of premium office and school supplies",
-    "subtitle": "A wide range of notebooks, pens, bags, geometry sets and office essentials, chosen with care.",
+    "title": "Asmaa Model Library: Discover a world of premium office and school supplies",
+    "subtitle": "A curated range of notebooks, pens, bags, geometry sets, art materials, and office essentials at Asmaa Model Library (مكتبة أسماء النموذجية).",
     "browseProducts": "Browse products",
-    "heroAlt": "A selection of notebooks, pens and school bags",
-    "heroSlot": "Main photo slot",
+    "heroAlt": "A selection of notebooks, pens and school bags at Asmaa Model Library",
+    "heroSlot": "Asmaa Model Library",
     "photoSlot": "Product photo",
-    "brandSlot": "Brand photo",
+    "brandSlot": "Brand logo",
     "categoriesTitle": "Featured Categories",
     "categoriesSubtitle": "Browse our carefully arranged sections to suit what you need.",
     "categories": {
@@ -55,71 +58,47 @@
       "office": "Office supplies"
     },
     "productsTitle": "Featured Products",
-    "productsSubtitle": "A selection from the showcase. Ask about any item on WhatsApp.",
+    "productsSubtitle": "A selection from Asmaa Model Library. Ask about any item on WhatsApp.",
     "allProducts": "View all products",
-    "products": {
-      "notebook": {
-        "name": "A5 leather notebook",
-        "meta": "Notebooks",
-        "price": "[price]"
-      },
-      "pen": {
-        "name": "Metal fountain pen",
-        "meta": "Premium pens",
-        "price": "[price]"
-      },
-      "case": {
-        "name": "Geometry pencil case",
-        "meta": "School supplies",
-        "price": "[price]"
-      },
-      "backpack": {
-        "name": "School backpack",
-        "meta": "Bags",
-        "price": "[price]"
-      }
-    },
     "brandsTitle": "Popular Brands",
-    "brandsSubtitle": "We buy from approved distributors so quality is assured.",
-    "brands": {
-      "one": "[brand name]",
-      "two": "[brand name]",
-      "three": "[brand name]",
-      "four": "[brand name]"
-    },
+    "brandsSubtitle": "We work with authorized distributors so quality is assured.",
     "brandBrowse": "Browse products",
-    "whyTitle": "Why Choose Us",
+    "whyTitle": "Why Choose Asmaa Model Library",
     "whySubtitle": "Expertise in choosing supplies, quality we trust, and a quick reply to your question.",
     "why": {
       "curation": "Expert curation",
       "quality": "Premium quality",
-      "exclusive": "Exclusive brands",
+      "exclusive": "Trusted brands",
       "ready": "Quick preparation"
     },
     "galleryTitle": "Gallery",
-    "gallerySubtitle": "Shots from inside the shop and from our ranges.",
-    "gallerySlot": "Shop photo",
-    "whatsappTitle": "Contact on WhatsApp",
-    "whatsappBody": "To ask about any product or to prepare a school list, message us on WhatsApp and we will reply with what we have and the price.",
+    "gallerySubtitle": "Shots from inside Asmaa Model Library and from our ranges.",
+    "gallerySlot": "Library photo",
+    "whatsappTitle": "Contact Asmaa Model Library on WhatsApp",
+    "whatsappBody": "To ask about any product or to prepare a school list, message us on WhatsApp and we will reply with availability and pricing.",
     "visit": {
-      "address": "[store address]",
-      "phone": "[phone number]",
-      "hours": "[opening hours]"
+      "address": "Asmaa Model Library (Configurable in Admin Settings)",
+      "phone": "Configurable in Admin Settings",
+      "hours": "Sat – Thu: 9:00 AM – 10:30 PM"
     }
   },
   "ComingSoon": {
-    "badge": "Under construction",
-    "description": "This page is being prepared and will be available soon.",
+    "badge": "Asmaa Model Library",
+    "description": "Explore the sections and products of Asmaa Model Library.",
     "backHome": "Back to home"
   },
   "Footer": {
-    "tagline": "Your trusted destination for stationery, school and office supplies.",
+    "tagline": "Asmaa Model Library (مكتبة أسماء النموذجية) — Your trusted destination for stationery, school and office supplies.",
     "browse": "Quick links",
     "more": "More",
     "contact": "Contact",
     "about": "About us",
+    "services": "Services",
+    "gallery": "Gallery",
     "faq": "FAQ",
     "privacy": "Privacy policy",
+    "terms": "Terms & Conditions",
+    "admin": "Admin Dashboard",
     "social": {
       "facebook": "Facebook",
       "instagram": "Instagram",
@@ -129,17 +108,21 @@
   },
   "NotFound": {
     "title": "Page not found",
-    "description": "This page seems to have got lost among the notebooks.",
+    "description": "This page could not be found in Asmaa Model Library.",
     "backHome": "Back to home"
   },
   "Catalog": {
-    "title": "Browse everything",
+    "title": "Browse All Supplies at Asmaa Model Library",
     "subtitle": "Filter by section or search for what you need, then message us on WhatsApp for price and availability.",
     "breadcrumbsLabel": "Breadcrumb",
     "filters": "Filters",
     "categories": "Categories",
     "brands": "Brand",
     "ages": "School stage",
+    "sortLabel": "Sort by",
+    "sortNewest": "Newest",
+    "sortName": "Name (A - Z)",
+    "sortFeatured": "Featured",
     "apply": "Apply Filters",
     "clear": "Clear Filters",
     "resultsLabel": "Search results",
@@ -158,53 +141,58 @@
       "pens": "Pens & Pencils",
       "geometry": "Geometry Sets",
       "art": "Art Supplies",
-      "office": "Office Supplies"
+      "office": "Office Supplies",
+      "educational": "Educational Products"
     },
     "brands": {
-      "one": "Brand One",
-      "two": "Brand Two",
-      "three": "Brand Three",
-      "four": "Brand Four"
+      "one": "Faber-Castell",
+      "two": "Staedtler",
+      "three": "Midori",
+      "four": "rOtring"
     },
     "ages": {
       "primary": "Primary",
       "preparatory": "Preparatory",
-      "secondary": "Secondary"
+      "secondary": "Secondary & University"
     }
   },
   "Product": {
-    "intro": "Available in the shop in several sizes and colours. Message us on WhatsApp and we will confirm what is in stock, tell you the price, and set it aside for you.",
-    "askPrice": "Ask About Price",
-    "priceNote": "Prices vary by size and availability, so we confirm them on WhatsApp before you visit.",
+    "intro": "Available at Asmaa Model Library in multiple sizes and colours. Message us on WhatsApp and we will confirm stock and pricing.",
+    "askPrice": "Ask on WhatsApp",
+    "priceNote": "The WhatsApp message automatically includes the product name and page link.",
     "related": "Similar Items",
+    "skuLabel": "SKU / Reference",
+    "priceLabel": "Indicative Price",
+    "variantsLabel": "Available Variations",
+    "specsHeading": "Specifications",
     "points": {
-      "availability": "We confirm availability before you come to the shop.",
+      "availability": "We confirm availability before you visit Asmaa Model Library.",
       "advice": "We help you pick the right option for the school stage.",
-      "bulk": "Special pricing for schools, companies, and bulk orders."
+      "bulk": "Special packages for schools, companies, and bulk inquiries."
     }
   },
   "Categories": {
-    "title": "All Sections",
-    "subtitle": "The shop is split into clear sections so you can find what you need quickly.",
+    "title": "All Sections — Asmaa Model Library",
+    "subtitle": "The library is split into clear sections so you can find what you need quickly.",
     "itemCount": "{count, plural, =0 {No items} one {1 item} other {# items}}",
     "filterInCatalog": "Advanced Filters For This Section"
   },
   "Brands": {
-    "title": "Brands",
-    "subtitle": "We work with authorised suppliers and agents. What you see here is a sample of the brands we carry.",
+    "title": "Brands at Asmaa Model Library",
+    "subtitle": "We work with authorized suppliers and international stationery brands.",
     "itemCount": "{count, plural, =0 {No items} one {1 item} other {# items}}",
-    "note": "These names and logos are placeholders until the real brands are added from the dashboard."
+    "note": "Brands and logos can be managed dynamically from the Admin Dashboard."
   },
   "Contact": {
-    "title": "Contact Us",
-    "subtitle": "WhatsApp is the fastest way to reach us. You can also visit the shop or call.",
+    "title": "Contact Asmaa Model Library",
+    "subtitle": "Send us a direct inquiry using the form below or reach us on WhatsApp.",
     "addressLabel": "Address",
     "phoneLabel": "Phone",
     "hoursLabel": "Opening hours",
     "emailLabel": "Email",
-    "emailValue": "[email address]",
-    "mapTitle": "Shop location",
-    "mapEmpty": "The map appears here once a location link is added.",
-    "formNote": "A message form will be added when the database is connected. Until then, WhatsApp and phone are the fastest ways to reach us."
+    "emailValue": "Configurable in Admin Settings",
+    "mapTitle": "Asmaa Model Library Location",
+    "mapEmpty": "The map appears here once a location link is added in Admin Settings.",
+    "formNote": "Messages submitted here are saved securely to the library database."
   }
 }
